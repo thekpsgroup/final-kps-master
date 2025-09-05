@@ -1,8 +1,41 @@
-'use client';
-
 import GlassCard from '@/components/ui/GlassCard';
 import { motion } from 'framer-motion';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Business Outcomes & Results | The KPS Group',
+  description:
+    "See real business results from The KPS Group's Modern Suite. +18-35% close rate lift, 8-12 hours saved weekly, and proven case studies from HVAC, electrical, and remodeling businesses.",
+  keywords:
+    'business outcomes, operational results, revenue growth, efficiency improvements, case studies, business transformation',
+  openGraph: {
+    title: 'Business Outcomes & Results | The KPS Group',
+    description:
+      "See real business results from The KPS Group's Modern Suite. +18-35% close rate lift, 8-12 hours saved weekly, and proven case studies.",
+    type: 'website',
+    url: '/outcomes',
+    siteName: 'The KPS Group',
+    images: [
+      {
+        url: '/kps-group/kps-og-1200x630.png',
+        width: 1200,
+        height: 630,
+        alt: 'The KPS Group - Business Outcomes & Results',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Business Outcomes & Results | The KPS Group',
+    description:
+      "See real business results from The KPS Group's Modern Suite. +18-35% close rate lift, 8-12 hours saved weekly.",
+    images: ['/kps-group/kps-og-1200x630.png'],
+  },
+  alternates: {
+    canonical: '/outcomes',
+  },
+};
 
 const kpis = [
   { label: 'Close Rate Lift', value: '+18–35%' },

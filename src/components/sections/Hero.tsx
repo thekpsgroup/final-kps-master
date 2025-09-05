@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import OptimizedImage from '@/components/ui/OptimizedImage';
 import HeroClient from './HeroClient';
 
 export default function Hero() {
@@ -22,11 +22,13 @@ export default function Hero() {
             <div className="relative">
               <div className="absolute inset-0 bg-kpsNavy/20 rounded-2xl blur-2xl" />
               <div className="relative bg-white rounded-2xl p-4 shadow-lg border border-gray-100">
-                <Image
+                <OptimizedImage
                   src="/kps-group/kps-square-128.png"
                   alt="The KPS Group"
                   width={64}
                   height={64}
+                  aspectRatio="1/1"
+                  priority
                   className="w-16 h-16"
                 />
               </div>
@@ -42,7 +44,12 @@ export default function Hero() {
 
           <p className="body-large max-w-3xl mx-auto mb-8">
             We handle your bookkeeping, payroll, tech support, websites, software, and operations
-            consulting—so you can focus on running your business with{' '}
+            consulting—so{' '}
+            <span className="font-semibold text-kpsNavy bg-kpsGold/20 px-3 py-1 rounded-lg">
+              construction companies, home services, HVAC, plumbing, electrical, and general
+              contractors
+            </span>{' '}
+            can focus on what they do best with{' '}
             <span className="font-semibold text-kpsNavy bg-kpsGold/20 px-3 py-1 rounded-lg">
               better financial clarity.
             </span>

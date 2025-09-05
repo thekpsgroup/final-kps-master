@@ -1,4 +1,30 @@
 import MobileOptimizedForm from '@/components/forms/MobileOptimizedForm';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Free Business Audit & Consultation | The KPS Group',
+  description:
+    'Get a free 30-minute business audit from The KPS Group. Identify 10-40 hours of monthly savings, learn where your money goes, and get a custom growth roadmap. No obligation.',
+  keywords:
+    'free business audit, business consultation, operational efficiency, cost savings, business growth roadmap',
+  openGraph: {
+    title: 'Free Business Audit & Consultation | The KPS Group',
+    description:
+      'Get a free 30-minute business audit from The KPS Group. Identify 10-40 hours of monthly savings and get a custom growth roadmap.',
+    type: 'website',
+    url: '/consultation',
+    siteName: 'The KPS Group',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Free Business Audit & Consultation | The KPS Group',
+    description:
+      'Get a free 30-minute business audit from The KPS Group. Identify 10-40 hours of monthly savings and get a custom growth roadmap.',
+  },
+  alternates: {
+    canonical: '/consultation',
+  },
+};
 
 export default function ConsultationPage() {
   return (

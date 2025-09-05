@@ -1,8 +1,32 @@
-'use client';
-
 import GlassCard from '@/components/ui/GlassCard';
 import { motion } from 'framer-motion';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Contact The KPS Group | Business Operations Experts',
+  description:
+    'Ready to transform your business operations? Contact The KPS Group for expert bookkeeping, payroll, IT support, and consulting services. We respond within 2-4 hours.',
+  keywords:
+    'contact KPS Group, business operations experts, bookkeeping services, payroll services, IT support, business consulting',
+  openGraph: {
+    title: 'Contact The KPS Group | Business Operations Experts',
+    description:
+      'Ready to transform your business operations? Contact The KPS Group for expert bookkeeping, payroll, IT support, and consulting services.',
+    type: 'website',
+    url: '/contact',
+    siteName: 'The KPS Group',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact The KPS Group | Business Operations Experts',
+    description:
+      'Ready to transform your business operations? Contact The KPS Group for expert bookkeeping, payroll, IT support, and consulting services.',
+  },
+  alternates: {
+    canonical: '/contact',
+  },
+};
 
 export default function ContactPage() {
   return (

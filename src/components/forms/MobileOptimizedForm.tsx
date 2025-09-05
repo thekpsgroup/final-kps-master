@@ -331,7 +331,7 @@ export default function MobileOptimizedForm() {
                       ? 'border-red-500 focus:ring-red-500/40 focus:border-red-500'
                       : 'border-gray-300'
                   }`}
-                  placeholder="(555) 123-4567"
+                  placeholder="(469) 458-6966"
                   autoComplete="tel"
                   aria-invalid={!!errors.phone}
                   aria-describedby={errors.phone ? 'phone-error' : undefined}

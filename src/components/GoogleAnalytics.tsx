@@ -1,12 +1,19 @@
-"use client";
+'use client';
 
-import { useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 // gtag is declared in ab-testing.ts
 
 // Google Analytics Tracking ID
 const GA_TRACKING_ID = 'G-SFELJ2R95K';
+
+// Declare gtag function type
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
 
 export default function GoogleAnalytics() {
   const pathname = usePathname();
@@ -23,23 +30,23 @@ export default function GoogleAnalytics() {
 
     // Initialize gtag
     window.dataLayer = window.dataLayer || [];
-    function gtag(...args: unknown[]) {
+    function gtag(...args: any[]) {
       window.dataLayer.push(args);
     }
 
     gtag('js', new Date());
     gtag('config', GA_TRACKING_ID, {
-      page_path: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
+      page_path: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ''),
     });
 
     // Make gtag globally available
-    (window as any).gtag = gtag;
+    window.gtag = gtag;
   }, []);
 
   // Track page views
   useEffect(() => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('config', GA_TRACKING_ID, {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('config', GA_TRACKING_ID, {
         page_path: pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : ''),
       });
     }
@@ -50,18 +57,18 @@ export default function GoogleAnalytics() {
 
 // Enhanced analytics tracking functions
 export const analytics = {
-  trackEvent: (eventName: string, parameters: Record<string, any> = {}) => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, parameters);
+  trackEvent: (eventName: string, parameters: Record<string, unknown> = {}) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', eventName, parameters);
     }
   },
 
   trackConversion: (conversionType: string, value?: number) => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'conversion', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
         conversion_type: conversionType,
         value: value,
-        currency: 'USD'
+        currency: 'USD',
       });
     }
   },
@@ -72,38 +79,61 @@ export const analytics = {
     fields: string[];
     completionRate?: number;
   }) => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'lead_form_interaction', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'lead_form_interaction', {
         form_id: formData.formId,
         form_type: formData.formType,
         field_count: formData.fields.length,
         completion_rate: formData.completionRate || 0,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
   },
 
   trackLocationPage: (city: string, service: string) => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'location_page_view', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'location_page_view', {
         location_city: city,
         service_type: service,
-        page_type: 'location_landing'
+        page_type: 'location_landing',
       });
     }
   },
 
-  setUserProperties: (properties: Record<string, any>) => {
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('config', GA_TRACKING_ID, {
+  trackUTMParameters: () => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmData = {
+        utm_source: urlParams.get('utm_source'),
+        utm_medium: urlParams.get('utm_medium'),
+        utm_campaign: urlParams.get('utm_campaign'),
+        utm_term: urlParams.get('utm_term'),
+        utm_content: urlParams.get('utm_content'),
+      };
+
+      // Track UTM parameters if present
+      if (Object.values(utmData).some((value) => value !== null)) {
+        if (window.gtag) {
+          window.gtag('event', 'utm_parameters_detected', utmData);
+        }
+      }
+
+      return utmData;
+    }
+    return {};
+  },
+
+  setUserProperties: (properties: Record<string, unknown>) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('config', GA_TRACKING_ID, {
         custom_map: {
-          'dimension1': 'user_segment',
-          'dimension2': 'conversion_probability',
-          'dimension3': 'page_type',
-          'dimension4': 'location_city'
+          dimension1: 'user_segment',
+          dimension2: 'conversion_probability',
+          dimension3: 'page_type',
+          dimension4: 'location_city',
         },
-        ...properties
+        ...properties,
       });
     }
-  }
+  },
 };

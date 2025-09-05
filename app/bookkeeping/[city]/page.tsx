@@ -1,7 +1,14 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { LOCATION_DATA, generateLocationMetadata, generateLocalBusinessSchema } from "@/lib/locationData";
-import ServiceLocationPage from "@/components/sections/ServiceLocationPage";
+import ContentExpansion from '@/components/sections/ContentExpansion';
+import RoyseCityContent from '@/components/sections/RoyseCityContent';
+import ServiceFAQ from '@/components/sections/ServiceFAQ';
+import ServiceLocationPage from '@/components/sections/ServiceLocationPage';
+import {
+  LOCATION_DATA,
+  generateLocalBusinessSchema,
+  generateLocationMetadata,
+} from '@/lib/locationData';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{
@@ -15,12 +22,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!metadata) {
     return {
-      title: "Bookkeeping Services | The KPS Group",
-      description: "Professional bookkeeping services for businesses across the United States."
+      title: 'Bookkeeping Services | The KPS Group',
+      description: 'Professional bookkeeping services for businesses across the United States.',
     };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thekpsgroup.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.thekpsgroup.com';
 
   return {
     title: metadata.title,
@@ -30,11 +37,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: metadata.title,
       description: metadata.description,
       url: `${baseUrl}/bookkeeping/${resolvedParams.city}`,
-      type: "website",
-      locale: "en_US",
+      type: 'website',
+      locale: 'en_US',
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
     },
@@ -69,15 +76,25 @@ export default async function BookkeepingLocationPage({ params }: PageProps) {
         service="bookkeeping"
         serviceTitle="Bookkeeping Services"
         serviceDescription="Professional bookkeeping and financial management for businesses in your area."
-        keywords={["bookkeeping services", "accounting services", "financial management", "business bookkeeping"]}
+        keywords={[
+          'bookkeeping services',
+          'accounting services',
+          'financial management',
+          'business bookkeeping',
+        ]}
         benefits={[
-          "Monthly financial statements and reports",
-          "Bank and credit card reconciliation",
-          "Accounts payable and receivable management",
-          "Financial planning and budgeting assistance",
-          "Tax preparation support and year-end planning"
+          'Monthly financial statements and reports',
+          'Bank and credit card reconciliation',
+          'Accounts payable and receivable management',
+          'Financial planning and budgeting assistance',
+          'Tax preparation support and year-end planning',
         ]}
       />
+      <ContentExpansion service="bookkeeping" location={location} />
+      <ServiceFAQ service="bookkeeping" location={location} />
+      {(location.slug === 'royse-city' || location.slug === 'fate') && (
+        <RoyseCityContent service="bookkeeping" location={location} />
+      )}
     </>
   );
 }

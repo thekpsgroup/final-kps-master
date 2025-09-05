@@ -1,9 +1,42 @@
-'use client';
-
 import GlassCard from '@/components/ui/GlassCard';
 import { motion } from 'framer-motion';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Karson Lawrence — Founder & CEO | The KPS Group',
+  description:
+    'Meet Karson Lawrence, founder and CEO of The KPS Group. With 10+ years in enterprise tech and hands-on business operations, Karson brings practical systems to growing businesses.',
+  keywords:
+    'Karson Lawrence, founder, CEO, business operations, enterprise experience, Modern Suite',
+  openGraph: {
+    title: 'Karson Lawrence — Founder & CEO | The KPS Group',
+    description:
+      'Meet Karson Lawrence, founder and CEO of The KPS Group. With 10+ years in enterprise tech and hands-on business operations.',
+    type: 'website',
+    url: '/founder',
+    siteName: 'The KPS Group',
+    images: [
+      {
+        url: '/kps-group/kps-og-1200x630.png',
+        width: 1200,
+        height: 630,
+        alt: 'Karson Lawrence - Founder & CEO of The KPS Group',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Karson Lawrence — Founder & CEO | The KPS Group',
+    description:
+      'Meet Karson Lawrence, founder and CEO of The KPS Group. With 10+ years in enterprise tech and hands-on business operations.',
+    images: ['/kps-group/kps-og-1200x630.png'],
+  },
+  alternates: {
+    canonical: '/founder',
+  },
+};
 
 const points = [
   {

@@ -1,6 +1,10 @@
+import ContentExpansion from '@/components/sections/ContentExpansion';
+import RoyseCityContent from '@/components/sections/RoyseCityContent';
+import ServiceFAQ from '@/components/sections/ServiceFAQ';
+import { LOCATION_DATA } from '@/lib/locationData';
+import { seoOptimizer } from '@/lib/seo-optimizer';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { seoOptimizer } from '@/lib/seo-optimizer';
 import Script from 'next/script';
 
 // Generate static params for all cities (for build time optimization)
@@ -13,15 +17,23 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ city: string }>;
+}): Promise<Metadata> {
   const resolvedParams = await params;
-  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   const seoData = seoOptimizer.generateLocationSEOData(cityName);
 
   return {
     title: seoData.metaTitle,
     description: seoData.metaDescription,
-    keywords: [`payroll services ${cityName}`, `ADP alternatives ${cityName}`, `payroll processing ${cityName}`],
+    keywords: [
+      `payroll services ${cityName}`,
+      `ADP alternatives ${cityName}`,
+      `payroll processing ${cityName}`,
+    ],
     openGraph: {
       title: seoData.metaTitle,
       description: seoData.metaDescription,
@@ -49,7 +61,7 @@ interface PageProps {
 
 export default async function LocationPage({ params }: PageProps) {
   const resolvedParams = await params;
-  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
   // Check if city exists in our keywords
   const locationKeywords = seoOptimizer.getLocationKeywords(cityName);
@@ -59,6 +71,11 @@ export default async function LocationPage({ params }: PageProps) {
 
   const seoData = seoOptimizer.generateLocationSEOData(cityName);
   const structuredData = JSON.stringify(seoData.structuredData);
+
+  // Get location data for components
+  const locationSlug = resolvedParams.city;
+  const location =
+    LOCATION_DATA[locationSlug] || LOCATION_DATA[cityName.toLowerCase().replace(/\s+/g, '-')];
 
   return (
     <>
@@ -107,19 +124,17 @@ export default async function LocationPage({ params }: PageProps) {
                 {/* Location-specific benefits */}
                 <div className="mt-12 grid md:grid-cols-2 gap-8">
                   <div className="bg-blue-50 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                      Local Expertise
-                    </h3>
+                    <h3 className="text-xl font-semibold text-slate-900 mb-3">Local Expertise</h3>
                     <p className="text-slate-600">
-                      Our team understands the unique business environment in {cityName} and provides tailored solutions for local compliance requirements.
+                      Our team understands the unique business environment in {cityName} and
+                      provides tailored solutions for local compliance requirements.
                     </p>
                   </div>
                   <div className="bg-green-50 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                      24/7 Support
-                    </h3>
+                    <h3 className="text-xl font-semibold text-slate-900 mb-3">24/7 Support</h3>
                     <p className="text-slate-600">
-                      Get round-the-clock support for all your payroll and HR needs, with dedicated account managers who know {cityName} businesses.
+                      Get round-the-clock support for all your payroll and HR needs, with dedicated
+                      account managers who know {cityName} businesses.
                     </p>
                   </div>
                 </div>
@@ -136,7 +151,7 @@ export default async function LocationPage({ params }: PageProps) {
                       'HR Support',
                       'Multi-State Payroll',
                       'Benefits Administration',
-                      'Time & Attendance'
+                      'Time & Attendance',
                     ].map((service) => (
                       <div key={service} className="bg-slate-50 p-4 rounded-lg">
                         <h4 className="font-semibold text-slate-900">{service}</h4>
@@ -150,11 +165,10 @@ export default async function LocationPage({ params }: PageProps) {
 
                 {/* CTA Section */}
                 <div className="mt-12 text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-                  <h2 className="text-3xl font-bold mb-4">
-                    Ready to Get Started?
-                  </h2>
+                  <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
                   <p className="text-xl mb-6 opacity-90">
-                    Join thousands of {cityName} businesses who trust KPS Group for their payroll needs.
+                    Join thousands of {cityName} businesses who trust KPS Group for their payroll
+                    needs.
                   </p>
                   <a
                     href="/consultation"
@@ -175,8 +189,9 @@ export default async function LocationPage({ params }: PageProps) {
               Payroll Services in Other Cities
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {seoOptimizer.getUniqueCities()
-                .filter(city => city !== cityName)
+              {seoOptimizer
+                .getUniqueCities()
+                .filter((city) => city !== cityName)
                 .slice(0, 12)
                 .map((city) => (
                   <a
@@ -191,6 +206,16 @@ export default async function LocationPage({ params }: PageProps) {
           </div>
         </section>
       </div>
+
+      {location && (
+        <>
+          <ContentExpansion service="payroll" location={location} />
+          <ServiceFAQ service="payroll" location={location} />
+          {(location.slug === 'royse-city' || location.slug === 'fate') && (
+            <RoyseCityContent service="payroll" location={location} />
+          )}
+        </>
+      )}
     </>
   );
 }

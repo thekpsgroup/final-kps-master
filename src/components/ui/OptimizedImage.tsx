@@ -1,11 +1,13 @@
 import Image, { ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface OptimizedImageProps extends Omit<ImageProps, 'onError' | 'onLoad'> {
   fallbackSrc?: string;
   showFallback?: boolean;
   blurDataURL?: string;
   priority?: boolean;
+  aspectRatio?: string;
+  lazy?: boolean;
 }
 
 // Default blur placeholder for logos
@@ -23,11 +25,38 @@ export default function OptimizedImage({
   showFallback = true,
   blurDataURL,
   priority = false,
+  aspectRatio,
+  lazy = true,
   className = '',
   ...props
 }: OptimizedImageProps) {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isInView, setIsInView] = useState(!lazy || priority);
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!lazy || priority) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: '50px',
+        threshold: 0.1,
+      },
+    );
+
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [lazy, priority]);
 
   // Determine appropriate blur placeholder
   const getBlurDataURL = () => {
@@ -56,16 +85,23 @@ export default function OptimizedImage({
   // If there's an error and we have a fallback, show it
   if (hasError && fallbackSrc && showFallback) {
     return (
-      <Image
-        {...props}
-        src={fallbackSrc}
-        alt={alt}
-        className={className}
-        onLoad={handleLoad}
-        onError={handleError}
-        blurDataURL={getBlurDataURL()}
-        placeholder="blur"
-      />
+      <div
+        ref={imgRef}
+        className={`relative overflow-hidden ${
+          aspectRatio ? 'aspect-ratio-container' : ''
+        } ${className}`}
+        style={aspectRatio ? { aspectRatio } : undefined}
+      >
+        <Image
+          {...props}
+          src={fallbackSrc}
+          alt={alt}
+          onLoad={handleLoad}
+          onError={handleError}
+          blurDataURL={getBlurDataURL()}
+          placeholder="blur"
+        />
+      </div>
     );
   }
 
@@ -73,10 +109,12 @@ export default function OptimizedImage({
   if (hasError) {
     return (
       <div
+        ref={imgRef}
         className={`bg-gray-200 animate-pulse flex items-center justify-center text-gray-600 ${className}`}
         style={{
           width: typeof props.width === 'number' ? `${props.width}px` : props.width,
           height: typeof props.height === 'number' ? `${props.height}px` : props.height,
+          aspectRatio,
         }}
       >
         <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
@@ -91,17 +129,43 @@ export default function OptimizedImage({
   }
 
   return (
-    <Image
-      {...props}
-      src={src}
-      alt={alt}
-      className={`${className} ${isLoading ? 'animate-pulse' : ''}`}
-      onLoad={handleLoad}
-      onError={handleError}
-      blurDataURL={getBlurDataURL()}
-      placeholder="blur"
-      priority={priority}
-    />
+    <div
+      ref={imgRef}
+      className={`relative overflow-hidden ${
+        aspectRatio ? 'aspect-ratio-container' : ''
+      } ${className}`}
+      style={aspectRatio ? { aspectRatio } : undefined}
+    >
+      {/* Loading skeleton */}
+      {isLoading && !priority && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg" />
+      )}
+
+      {/* Optimized Image */}
+      {isInView && (
+        <Image
+          {...props}
+          src={src}
+          alt={alt}
+          className={`${isLoading ? 'animate-pulse' : ''} transition-opacity duration-300`}
+          onLoad={handleLoad}
+          onError={handleError}
+          blurDataURL={getBlurDataURL()}
+          placeholder="blur"
+          priority={priority}
+          style={{
+            width: '100%',
+            height: 'auto',
+            objectFit: 'cover',
+          }}
+        />
+      )}
+
+      {/* Preload hint for critical images */}
+      {priority && typeof src === 'string' && (
+        <link rel="preload" as="image" href={src} fetchPriority="high" />
+      )}
+    </div>
   );
 }
 

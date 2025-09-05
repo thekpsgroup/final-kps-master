@@ -398,7 +398,7 @@ class PersonalizationEngine {
           {
             name: 'phone',
             label: 'Phone Number',
-            placeholder: '(555) 123-4567',
+            placeholder: '(469) 458-6966',
             helpText: 'For faster response - we can call you today!',
             priority: 3,
             required: false,

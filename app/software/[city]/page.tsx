@@ -1,7 +1,14 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { LOCATION_DATA, generateLocationMetadata, generateLocalBusinessSchema } from "@/lib/locationData";
-import ServiceLocationPage from "@/components/sections/ServiceLocationPage";
+import ContentExpansion from '@/components/sections/ContentExpansion';
+import RoyseCityContent from '@/components/sections/RoyseCityContent';
+import ServiceFAQ from '@/components/sections/ServiceFAQ';
+import ServiceLocationPage from '@/components/sections/ServiceLocationPage';
+import {
+  LOCATION_DATA,
+  generateLocalBusinessSchema,
+  generateLocationMetadata,
+} from '@/lib/locationData';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{
@@ -15,12 +22,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!metadata) {
     return {
-      title: "Business Software Solutions | The KPS Group",
-      description: "Professional business software and automation solutions across the United States."
+      title: 'Business Software Solutions | The KPS Group',
+      description:
+        'Professional business software and automation solutions across the United States.',
     };
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.thekpsgroup.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.thekpsgroup.com';
 
   return {
     title: metadata.title,
@@ -30,11 +38,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: metadata.title,
       description: metadata.description,
       url: `${baseUrl}/software/${resolvedParams.city}`,
-      type: "website",
-      locale: "en_US",
+      type: 'website',
+      locale: 'en_US',
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
     },
@@ -69,15 +77,26 @@ export default async function SoftwareLocationPage({ params }: PageProps) {
         service="software"
         serviceTitle="Business Software Solutions"
         serviceDescription="Professional business software, automation, and custom development for businesses in your area."
-        keywords={["business software", "CRM software", "field service software", "business automation", "custom software"]}
+        keywords={[
+          'business software',
+          'CRM software',
+          'field service software',
+          'business automation',
+          'custom software',
+        ]}
         benefits={[
-          "CRM and customer relationship management",
-          "Field service and dispatch software",
-          "Business process automation",
-          "Custom software development",
-          "System integration and API development"
+          'CRM and customer relationship management',
+          'Field service and dispatch software',
+          'Business process automation',
+          'Custom software development',
+          'System integration and API development',
         ]}
       />
+      <ContentExpansion service="software" location={location} />
+      <ServiceFAQ service="software" location={location} />
+      {(location.slug === 'royse-city' || location.slug === 'fate') && (
+        <RoyseCityContent service="software" location={location} />
+      )}
     </>
   );
 }

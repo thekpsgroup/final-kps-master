@@ -1,8 +1,33 @@
-'use client';
 import { brandsConfig } from '@/config/brandsConfig';
 import { motion } from 'framer-motion';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Modern Suite | Complete Business Operations Platform | The KPS Group',
+  description:
+    "Discover The KPS Group's Modern Suite: integrated bookkeeping, payroll, IT support, and consulting solutions. One platform for all your business operations needs.",
+  keywords:
+    'Modern Suite, business operations platform, integrated solutions, bookkeeping software, payroll system, IT support platform',
+  openGraph: {
+    title: 'Modern Suite | Complete Business Operations Platform | The KPS Group',
+    description:
+      "Discover The KPS Group's Modern Suite: integrated bookkeeping, payroll, IT support, and consulting solutions for growing businesses.",
+    type: 'website',
+    url: '/modern-suite',
+    siteName: 'The KPS Group',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Modern Suite | Complete Business Operations Platform | The KPS Group',
+    description:
+      "Discover The KPS Group's Modern Suite: integrated bookkeeping, payroll, IT support, and consulting solutions for growing businesses.",
+  },
+  alternates: {
+    canonical: '/modern-suite',
+  },
+};
 
 export default function ModernSuitePage() {
   return (

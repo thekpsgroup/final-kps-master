@@ -1,7 +1,8 @@
 // Safe bundle analyzer import
 let withBundleAnalyzer;
 try {
-  withBundleAnalyzer = require('@next/bundle-analyzer')({
+  const bundleAnalyzer = await import('@next/bundle-analyzer');
+  withBundleAnalyzer = bundleAnalyzer.default({
     enabled: process.env.ANALYZE === 'true',
   });
 } catch {
@@ -14,7 +15,7 @@ const nextConfig = {
   // Fix workspace root detection
   outputFileTracingRoot: __dirname,
 
-  // Enhanced Image optimization
+  // Enhanced Image optimization with aspect ratio support
   images: {
     domains: ['www.thekpsgroup.com', 'localhost'],
     formats: ['image/webp', 'image/avif'],
@@ -25,29 +26,26 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
-  // Performance optimizations
+  // Advanced performance optimizations
   experimental: {
-    optimizePackageImports: ['framer-motion', '@heroicons/react', 'lucide-react'],
+    optimizePackageImports: [
+      'framer-motion',
+      '@heroicons/react',
+      'lucide-react',
+      'react-icons',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+    ],
     optimizeCss: true,
     scrollRestoration: true,
+    webVitalsAttribution: ['CLS', 'LCP'],
   },
 
-  // Compression
+  // Compression and optimization
   compress: true,
+  poweredByHeader: false,
 
-  // Bundle analysis (conditional)
-  ...(process.env.ANALYZE === 'true' && {
-    webpack: (config) => {
-      config.plugins.push(
-        new (require('@next/bundle-analyzer'))({
-          enabled: true,
-        }),
-      );
-      return config;
-    },
-  }),
-
-  // Enhanced headers for performance
+  // Enhanced headers for Core Web Vitals and performance
   async headers() {
     return [
       {
@@ -64,6 +62,10 @@ const nextConfig = {
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
           },
         ],
       },
@@ -91,6 +93,15 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=300, s-maxage=600',
+          },
+        ],
+      },
+      {
+        source: '/(.*)\\.(js|css)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

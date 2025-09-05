@@ -1,6 +1,8 @@
+import RoyseCityContent from '@/components/sections/RoyseCityContent';
+import { LOCATION_DATA } from '@/lib/locationData';
+import { seoOptimizer } from '@/lib/seo-optimizer';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { seoOptimizer } from '@/lib/seo-optimizer';
 import Script from 'next/script';
 
 // Service type mappings
@@ -8,28 +10,28 @@ const serviceMappings: Record<string, { title: string; description: string; page
   'payroll-services': {
     title: 'Payroll Services',
     description: 'Professional payroll processing and compliance services',
-    page: '/modern-pay'
+    page: '/modern-pay',
   },
   'bookkeeping-services': {
     title: 'Bookkeeping Services',
     description: 'Expert bookkeeping and financial management services',
-    page: '/modern-ledger'
+    page: '/modern-ledger',
   },
   'business-consulting': {
     title: 'Business Consulting',
     description: 'Strategic business consulting and operations optimization',
-    page: '/modern-consulting'
+    page: '/modern-consulting',
   },
   'hr-services': {
     title: 'HR Services',
     description: 'Human resources and compliance services',
-    page: '/modern-pay'
+    page: '/modern-pay',
   },
   'it-services': {
     title: 'IT Services',
     description: 'Managed IT services and technology solutions',
-    page: '/modern-stack'
-  }
+    page: '/modern-stack',
+  },
 };
 
 // Generate static params for service-city combinations
@@ -39,11 +41,12 @@ export async function generateStaticParams() {
 
   const params: { service: string; city: string }[] = [];
 
-  services.forEach(service => {
-    cities.slice(0, 50).forEach(city => { // Limit for build performance
+  services.forEach((service) => {
+    cities.slice(0, 100).forEach((city) => {
+      // Increased limit for Dallas Metro coverage
       params.push({
         service,
-        city: city.toLowerCase().replace(/\s+/g, '-')
+        city: city.toLowerCase().replace(/\s+/g, '-'),
       });
     });
   });
@@ -53,19 +56,19 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({
-  params
+  params,
 }: {
-  params: Promise<{ service: string; city: string }>
+  params: Promise<{ service: string; city: string }>;
 }): Promise<Metadata> {
   const resolvedParams = await params;
   const serviceSlug = resolvedParams.service;
-  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
   const serviceInfo = serviceMappings[serviceSlug];
   if (!serviceInfo) {
     return {
       title: `The KPS Group - ${cityName}`,
-      description: `Professional business services in ${cityName}`
+      description: `Professional business services in ${cityName}`,
     };
   }
 
@@ -74,7 +77,11 @@ export async function generateMetadata({
   return {
     title: `${serviceInfo.title} in ${cityName} | KPS Group`,
     description: `${serviceInfo.description} in ${cityName}. Professional solutions tailored for local businesses.`,
-    keywords: [`${serviceInfo.title.toLowerCase()} ${cityName}`, `${serviceSlug} ${cityName}`, `professional services ${cityName}`],
+    keywords: [
+      `${serviceInfo.title.toLowerCase()} ${cityName}`,
+      `${serviceSlug} ${cityName}`,
+      `professional services ${cityName}`,
+    ],
     openGraph: {
       title: `${serviceInfo.title} in ${cityName} | KPS Group`,
       description: `${serviceInfo.description} in ${cityName}. Professional solutions tailored for local businesses.`,
@@ -104,10 +111,16 @@ interface PageProps {
 export default async function ServiceLocationPage({ params }: PageProps) {
   const resolvedParams = await params;
   const serviceSlug = resolvedParams.service;
-  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const cityName = resolvedParams.city.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
 
   const serviceInfo = serviceMappings[serviceSlug];
   if (!serviceInfo) {
+    notFound();
+  }
+
+  // Get location data
+  const location = LOCATION_DATA[resolvedParams.city];
+  if (!location) {
     notFound();
   }
 
@@ -135,7 +148,8 @@ export default async function ServiceLocationPage({ params }: PageProps) {
               {serviceInfo.title} in {cityName}
             </h1>
             <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
-              {serviceInfo.description} in {cityName}. Professional solutions tailored for local businesses.
+              {serviceInfo.description} in {cityName}. Professional solutions tailored for local
+              businesses.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -160,9 +174,10 @@ export default async function ServiceLocationPage({ params }: PageProps) {
             <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
               <div className="prose prose-lg max-w-none">
                 <div className="whitespace-pre-line text-slate-700 leading-relaxed mb-8">
-                  Looking for reliable {serviceInfo.title.toLowerCase()} in {cityName}? KPS Group offers comprehensive {serviceInfo.description.toLowerCase()} tailored for businesses in {cityName}.
-
-                  Our expert team provides professional solutions that understand the unique business environment and local requirements in {cityName}.
+                  Looking for reliable {serviceInfo.title.toLowerCase()} in {cityName}? KPS Group
+                  offers comprehensive {serviceInfo.description.toLowerCase()} tailored for
+                  businesses in {cityName}. Our expert team provides professional solutions that
+                  understand the unique business environment and local requirements in {cityName}.
                 </div>
 
                 {/* Service-specific content based on service type */}
@@ -217,30 +232,27 @@ export default async function ServiceLocationPage({ params }: PageProps) {
                 {/* Benefits Section */}
                 <div className="mt-12 grid md:grid-cols-2 gap-8">
                   <div className="bg-blue-50 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                      Local Expertise
-                    </h3>
+                    <h3 className="text-xl font-semibold text-slate-900 mb-3">Local Expertise</h3>
                     <p className="text-slate-600">
-                      Our team understands the unique business environment in {cityName} and provides tailored solutions for local compliance requirements.
+                      Our team understands the unique business environment in {cityName} and
+                      provides tailored solutions for local compliance requirements.
                     </p>
                   </div>
                   <div className="bg-green-50 p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold text-slate-900 mb-3">
-                      Dedicated Support
-                    </h3>
+                    <h3 className="text-xl font-semibold text-slate-900 mb-3">Dedicated Support</h3>
                     <p className="text-slate-600">
-                      Get personalized support from dedicated account managers who understand {cityName} business needs.
+                      Get personalized support from dedicated account managers who understand{' '}
+                      {cityName} business needs.
                     </p>
                   </div>
                 </div>
 
                 {/* CTA Section */}
                 <div className="mt-12 text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-                  <h2 className="text-3xl font-bold mb-4">
-                    Ready to Get Started in {cityName}?
-                  </h2>
+                  <h2 className="text-3xl font-bold mb-4">Ready to Get Started in {cityName}?</h2>
                   <p className="text-xl mb-6 opacity-90">
-                    Join businesses in {cityName} who trust KPS Group for their professional service needs.
+                    Join businesses in {cityName} who trust KPS Group for their professional service
+                    needs.
                   </p>
                   <a
                     href="/consultation"
@@ -257,9 +269,7 @@ export default async function ServiceLocationPage({ params }: PageProps) {
         {/* Related Services Section */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-slate-900 text-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">
-              More Services in {cityName}
-            </h2>
+            <h2 className="text-3xl font-bold text-center mb-12">More Services in {cityName}</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {Object.entries(serviceMappings)
                 .filter(([key]) => key !== serviceSlug)
@@ -277,6 +287,9 @@ export default async function ServiceLocationPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* Local Community Content */}
+        <RoyseCityContent service={serviceSlug} location={location} />
       </div>
     </>
   );
