@@ -57,7 +57,9 @@ function validateStructuredData() {
   requiredSchemas.forEach((schema) => {
     if (
       layoutContent.includes(`"@type": "${schema}"`) ||
-      footerContent.includes(`"@type": "${schema}"`)
+      layoutContent.includes(`'@type': '${schema}'`) ||
+      footerContent.includes(`"@type": "${schema}"`) ||
+      footerContent.includes(`'@type': '${schema}'`)
     ) {
       log(`✅ ${schema} schema found`, 'green');
       schemaCount++;

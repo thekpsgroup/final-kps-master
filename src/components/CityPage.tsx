@@ -1,10 +1,53 @@
-import CityPage from '@/components/CityPage';
+import type { CityName } from '@/lib/cityData';
+import { getCityData } from '@/lib/cityData';
+import DFWServicesGrid from '@/components/DFWServicesGrid';
+import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import Script from 'next/script';
 
-export default function DfwPage() {
-  return <CityPage city="Dallas" />;
+const VideoTestimonial = dynamic(
+  () => import('@/components/VideoTestimonial') as Promise<{
+    default: React.ComponentType<{
+      src?: string;
+      poster?: string;
+      width?: number;
+      height?: number;
+    }>;
+  }>,
+  { ssr: false }
+);
+
+interface CityPageProps {
+  city: CityName;
 }
 
+export function generateMetadata({ city }: CityPageProps): Metadata {
+  const { title, description, canonical } = getCityData(city);
+  return {
+    title,
+    description,
+    alternates: { canonical },
+  };
+}
 
+export default function CityPage({ city }: CityPageProps) {
+  const { breadcrumb } = getCityData(city);
+  
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thekpsgroup.com' },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Locations',
+        item: 'https://thekpsgroup.com/locations',
+      },
+      { '@type': 'ListItem', position: 3, ...breadcrumb },
+    ],
+  };
 
   const faqLd = {
     '@context': 'https://schema.org',
@@ -12,7 +55,7 @@ export default function DfwPage() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'How quickly can you onboard a new contractor in DFW?',
+        name: `How quickly can you onboard a new contractor in ${city}?`,
         acceptedAnswer: {
           '@type': 'Answer',
           text: 'We typically complete setup within days depending on complexity; we prioritize fast, accurate onboarding for trades.',
@@ -39,10 +82,10 @@ export default function DfwPage() {
       </Script>
 
       {/* Hero */}
-      <section aria-label="DFW hero" className="pt-6 pb-8">
+      <section aria-label={`${city} hero`} className="pt-6 pb-8">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">
-            DFW Trades & Contractors: Back-Office, Payroll, Ops—Handled.
+            {city} Trades & Contractors: Back-Office, Payroll, Ops—Handled.
           </h1>
           <p className="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
             Back-office and operations that keep your crews working. Fast setup, accurate payroll,
@@ -66,7 +109,7 @@ export default function DfwPage() {
 
           <div className="mt-4 text-sm text-gray-500">
             <span className="inline-block mr-2">⭐️ 5.0 Google</span>
-            <span className="text-gray-400">· Trusted by DFW contractors</span>
+            <span className="text-gray-400">· Trusted by {city} contractors</span>
           </div>
         </div>
       </section>
@@ -77,28 +120,9 @@ export default function DfwPage() {
           <DFWServicesGrid />
 
           <section className="mt-8">
-            <h2 className="text-xl font-semibold">Proudly serving Dallas–Fort Worth</h2>
-            <p className="mt-3 text-gray-600">
-              We cover the metro — here are some of the top areas we serve.
-            </p>
-
-            <div className="mt-4 flex flex-wrap gap-2" role="list">
-              {serviceAreaCities.map((c) => (
-                <button
-                  key={c}
-                  role="listitem"
-                  className="px-3 py-1 rounded-full bg-gray-100 text-sm text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          <section className="mt-8">
             <h3 className="text-lg font-semibold">Customer Testimonial</h3>
             <p className="mt-2 text-gray-600">
-              “They transformed our back-office and payroll — true pros.”
+              "They transformed our back-office and payroll — true pros."
             </p>
             <div className="mt-4">
               <VideoTestimonial src="/videos/dfw-testimonial.mp4" poster="/videos/dfw-poster.svg" />
@@ -106,7 +130,7 @@ export default function DfwPage() {
           </section>
 
           <section className="mt-8">
-            <h3 className="text-lg font-semibold">Why DFW Contractors Choose Us</h3>
+            <h3 className="text-lg font-semibold">Why {city} Contractors Choose Us</h3>
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="rounded-xl bg-gray-50 p-4 text-center">
                 Accuracy
@@ -127,7 +151,7 @@ export default function DfwPage() {
           </section>
 
           <section className="mt-8">
-            <h3 className="text-lg font-semibold">How It Works (DFW)</h3>
+            <h3 className="text-lg font-semibold">How It Works ({city})</h3>
             <ol className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4 list-decimal list-inside">
               <li className="rounded-xl bg-white p-4 shadow-sm">Consult</li>
               <li className="rounded-xl bg-white p-4 shadow-sm">Setup</li>
@@ -159,7 +183,7 @@ export default function DfwPage() {
         {/* Lead form column */}
         <aside className="w-full">
           <div className="sticky top-24 rounded-2xl bg-white p-6 shadow-md">
-            <h3 className="text-lg font-semibold">Get a DFW Quote</h3>
+            <h3 className="text-lg font-semibold">Get a {city} Quote</h3>
             <p className="mt-2 text-sm text-gray-600">
               No obligation — accurate quotes for contractors.
             </p>
@@ -169,7 +193,7 @@ export default function DfwPage() {
               method="POST"
               className="mt-4 space-y-4"
             >
-              <input type="hidden" name="_subject" value="DFW Lead – The KPS Group" />
+              <input type="hidden" name="_subject" value={`${city} Lead – The KPS Group`} />
               <input type="hidden" name="_captcha" value="false" />
               <input
                 type="text"
@@ -179,6 +203,7 @@ export default function DfwPage() {
                 autoComplete="off"
               />
               <input type="hidden" name="_next" value="/thank-you" />
+              <input type="hidden" name="City" value={city} />
 
               <label htmlFor="name" className="block text-sm font-medium">
                 Name

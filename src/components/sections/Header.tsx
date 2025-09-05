@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import CitySelector from '../CitySelector';
 
 const NAV = [
   { href: '/modern-suite', label: 'Suite' },
@@ -60,6 +61,7 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
+            <CitySelector className="w-48" />
             {NAV.map((item) => (
               <Link
                 key={item.href}
@@ -130,6 +132,9 @@ export default function Header() {
 
                 {/* Navigation Links */}
                 <div className="space-y-1 mb-8">
+                  <div className="px-4 py-4">
+                    <CitySelector />
+                  </div>
                   <Link
                     href="/"
                     onClick={() => setOpen(false)}

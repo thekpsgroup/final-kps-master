@@ -123,15 +123,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             '@type': 'Service',
             name: 'Modern Suite Business Operations',
             description:
-              'Comprehensive business operations including bookkeeping, payroll, IT support, branding, consulting, and software solutions.',
+              'Comprehensive business operations including bookkeeping, payroll, IT support, branding, consulting, and software solutions for businesses nationwide.',
             provider: {
               '@type': 'Organization',
               name: 'The KPS Group',
             },
-            areaServed: {
-              '@type': 'Country',
-              name: 'United States',
-            },
+            areaServed: [
+              {
+                '@type': 'Country',
+                name: 'United States',
+              },
+              {
+                '@type': 'State',
+                name: 'Texas',
+              }
+            ],
             serviceType: 'Business Operations Management',
           })}
         </Script>
@@ -142,13 +148,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             '@type': 'LocalBusiness',
             name: 'The KPS Group',
             description:
-              'Leading provider of comprehensive business operations solutions including bookkeeping, payroll, IT support, branding, consulting, and software solutions for businesses across the Dallas Metro area.',
+              'Leading provider of comprehensive business operations solutions including bookkeeping, payroll, IT support, branding, consulting, and software solutions. Serving businesses nationwide with strong local presence in Texas.',
             url: 'https://www.thekpsgroup.com',
-            telephone: '(469) 458-6966',
+            telephone: ['+1-469-458-6966', '+1-469-534-3392'],
             email: 'sales@thekpsgroup.com',
             address: {
               '@type': 'PostalAddress',
-              addressLocality: 'Dallas',
+              addressLocality: 'Dallas–Fort Worth Metroplex',
               addressRegion: 'TX',
               addressCountry: 'US',
             },
@@ -157,27 +163,68 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               latitude: '32.7767',
               longitude: '-96.7970',
             },
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'Business Services',
+              itemListElement: [
+                {
+                  '@type': 'Offer',
+                  itemOffered: {
+                    '@type': 'Service',
+                    name: 'Nationwide Business Operations',
+                    description: 'Remote business operations services for companies across all 50 states.'
+                  }
+                }
+              ]
+            },
             areaServed: [
-              {
-                '@type': 'City',
-                name: 'Dallas',
-              },
-              {
-                '@type': 'City',
-                name: 'Fort Worth',
-              },
-              {
-                '@type': 'City',
-                name: 'Arlington',
-              },
-              {
-                '@type': 'City',
-                name: 'Plano',
-              },
-              {
-                '@type': 'City',
-                name: 'Frisco',
-              },
+              // Core DFW Cities
+              { '@type': 'City', name: 'Dallas' },
+              { '@type': 'City', name: 'Fort Worth' },
+              { '@type': 'City', name: 'Arlington' },
+              { '@type': 'City', name: 'Plano' },
+              { '@type': 'City', name: 'Frisco' },
+              { '@type': 'City', name: 'Irving' },
+              { '@type': 'City', name: 'Garland' },
+              { '@type': 'City', name: 'McKinney' },
+              { '@type': 'City', name: 'Denton' },
+              { '@type': 'City', name: 'Grand Prairie' },
+              { '@type': 'City', name: 'Richardson' },
+              { '@type': 'City', name: 'Lewisville' },
+              { '@type': 'City', name: 'Mesquite' },
+              { '@type': 'City', name: 'Allen' },
+              { '@type': 'City', name: 'Grapevine' },
+              { '@type': 'City', name: 'Carrollton' },
+              { '@type': 'City', name: 'Keller' },
+              { '@type': 'City', name: 'Mansfield' },
+              { '@type': 'City', name: 'Rockwall' },
+              { '@type': 'City', name: 'Rowlett' },
+              // Extended Service Area
+              { '@type': 'City', name: 'Royse City' },
+              { '@type': 'City', name: 'Fate' },
+              { '@type': 'City', name: 'Greenville' },
+              { '@type': 'City', name: 'Tyler' },
+              { '@type': 'City', name: 'Waco' },
+              { '@type': 'City', name: 'Sherman' },
+              { '@type': 'City', name: 'Denison' },
+              { '@type': 'City', name: 'Paris' },
+              { '@type': 'City', name: 'Texarkana' },
+              { '@type': 'City', name: 'Corsicana' },
+              { '@type': 'City', name: 'Athens' },
+              { '@type': 'City', name: 'Palestine' },
+              { '@type': 'City', name: 'Terrell' },
+              { '@type': 'City', name: 'Forney' },
+              { '@type': 'City', name: 'Sulphur Springs' },
+              { '@type': 'City', name: 'Mount Pleasant' },
+              { '@type': 'City', name: 'Bonham' },
+              { '@type': 'City', name: 'Canton' },
+              { '@type': 'City', name: 'Kaufman' },
+              { '@type': 'City', name: 'Mineola' },
+              { '@type': 'City', name: 'Van' },
+              { '@type': 'City', name: 'Quitman' },
+              { '@type': 'City', name: 'Winnsboro' },
+              { '@type': 'City', name: 'Emory' },
+              { '@type': 'City', name: 'Gun Barrel City' },
             ],
             priceRange: '$$',
             paymentAccepted: 'Cash, Credit Card',
