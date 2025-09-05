@@ -543,8 +543,6 @@ export default function RoyseCityContent({ service, location, className = '' }: 
               </Card>
             </div>
           </div>
-            </div>
-          </div>
         </div>
       </section>
 

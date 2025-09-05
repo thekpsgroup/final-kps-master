@@ -1,14 +1,8 @@
-// Safe bundle analyzer import
-let withBundleAnalyzer;
-try {
-  const bundleAnalyzer = await import('@next/bundle-analyzer');
-  withBundleAnalyzer = bundleAnalyzer.default({
-    enabled: process.env.ANALYZE === 'true',
-  });
-} catch {
-  // If bundle analyzer is not installed, use identity function
-  withBundleAnalyzer = (config) => config;
-}
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -114,4 +108,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+export default withBundleAnalyzer(nextConfig);

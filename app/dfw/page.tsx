@@ -1,10 +1,44 @@
-import CityPage from '@/components/CityPage';
+import Script from 'next/script';
+import Link from 'next/link';
+import DFWServicesGrid from '@/components/DFWServicesGrid';
+import VideoTestimonial from '@/components/VideoTestimonial';
+
+const serviceAreaCities = [
+  'Dallas',
+  'Fort Worth',
+  'Arlington',
+  'Plano',
+  'Irving',
+  'Garland',
+  'McKinney',
+  'Frisco',
+  'Richardson',
+  'Rockwall'
+];
 
 export default function DfwPage() {
-  return <CityPage city="Dallas" />;
-}
-
-
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        item: {
+          '@id': '/',
+          name: 'Home'
+        }
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        item: {
+          '@id': '/dfw',
+          name: 'DFW'
+        }
+      }
+    ]
+  };
 
   const faqLd = {
     '@context': 'https://schema.org',

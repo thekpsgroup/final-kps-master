@@ -2,16 +2,14 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import type { GtagFunction } from '@/types/gtag';
 
-// gtag is declared in ab-testing.ts
-
-// Google Analytics Tracking ID
 const GA_TRACKING_ID = 'G-SFELJ2R95K';
 
-// Declare gtag function type
 declare global {
   interface Window {
-    gtag: (...args: any[]) => void;
+    dataLayer: unknown[];
+    gtag: GtagFunction;
   }
 }
 
@@ -30,9 +28,9 @@ export default function GoogleAnalytics() {
 
     // Initialize gtag
     window.dataLayer = window.dataLayer || [];
-    function gtag(...args: any[]) {
+    const gtag: Window['gtag'] = (...args) => {
       window.dataLayer.push(args);
-    }
+    };
 
     gtag('js', new Date());
     gtag('config', GA_TRACKING_ID, {
@@ -41,7 +39,7 @@ export default function GoogleAnalytics() {
 
     // Make gtag globally available
     window.gtag = gtag;
-  }, []);
+  }, [pathname, searchParams]);
 
   // Track page views
   useEffect(() => {
