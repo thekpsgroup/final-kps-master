@@ -1,0 +1,40 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#f3f4f6"/>
+  <rect x="50" y="50" width="700" height="350" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+
+  <!-- Dashboard header -->
+  <rect x="80" y="80" width="640" height="60" fill="#1f2937" rx="8"/>
+  <text x="100" y="110" font-family="Arial, sans-serif" font-size="20" fill="white" font-weight="bold">Owner Dashboard</text>
+  <text x="100" y="130" font-family="Arial, sans-serif" font-size="14" fill="#9ca3af">Weekly Business Metrics</text>
+
+  <!-- KPI Cards -->
+  <rect x="80" y="160" width="180" height="100" fill="#10b981" rx="8"/>
+  <text x="90" y="180" font-family="Arial, sans-serif" font-size="14" fill="white">Revenue</text>
+  <text x="90" y="200" font-family="Arial, sans-serif" font-size="24" fill="white" font-weight="bold">$47,250</text>
+  <text x="90" y="220" font-family="Arial, sans-serif" font-size="12" fill="#d1fae5">↑ 12% from last week</text>
+
+  <rect x="280" y="160" width="180" height="100" fill="#3b82f6" rx="8"/>
+  <text x="290" y="180" font-family="Arial, sans-serif" font-size="14" fill="white">AR Days</text>
+  <text x="290" y="200" font-family="Arial, sans-serif" font-size="24" fill="white" font-weight="bold">23</text>
+  <text x="290" y="220" font-family="Arial, sans-serif" font-size="12" fill="#dbeafe">↓ 8 days improved</text>
+
+  <rect x="480" y="160" width="180" height="100" fill="#f59e0b" rx="8"/>
+  <text x="490" y="180" font-family="Arial, sans-serif" font-size="14" fill="white">Close Rate</text>
+  <text x="490" y="200" font-family="Arial, sans-serif" font-size="24" fill="white" font-weight="bold">34%</text>
+  <text x="490" y="220" font-family="Arial, sans-serif" font-size="12" fill="#fef3c7">↑ 13% improvement</text>
+
+  <!-- Chart area -->
+  <rect x="80" y="280" width="640" height="100" fill="#f9fafb" rx="8" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="90" y="300" font-family="Arial, sans-serif" font-size="14" fill="#374151" font-weight="bold">Monthly Trend</text>
+
+  <!-- Simple chart -->
+  <polyline points="120,350 160,320 200,340 240,300 280,280 320,300 360,250 400,270 440,230 480,250 520,210 560,230 600,190 640,210 680,170" stroke="#10b981" stroke-width="3" fill="none"/>
+  <circle cx="680" cy="170" r="4" fill="#10b981"/>
+
+  <!-- Grid lines -->
+  <line x1="120" y1="320" x2="680" y2="320" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="5,5"/>
+  <line x1="120" y1="270" x2="680" y2="270" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="5,5"/>
+  <line x1="120" y1="220" x2="680" y2="220" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="5,5"/>
+
+  <text x="400" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#374151" font-weight="bold">Owner dashboard with weekly rhythm</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#f3f4f6"/>
+  <rect x="50" y="50" width="700" height="350" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+
+  <!-- Leaky pipeline illustration -->
+  <circle cx="150" cy="150" r="30" fill="#dc2626"/>
+  <text x="150" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">?</text>
+
+  <circle cx="300" cy="150" r="30" fill="#ea580c"/>
+  <text x="300" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">?</text>
+
+  <circle cx="450" cy="150" r="30" fill="#ca8a04"/>
+  <text x="450" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">?</text>
+
+  <circle cx="600" cy="150" r="30" fill="#7c3aed"/>
+  <text x="600" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="white">?</text>
+
+  <!-- Leaking lines -->
+  <path d="M180 150 L220 200 L260 180 L300 220" stroke="#ef4444" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+  <path d="M330 150 L370 190 L410 170 L450 210" stroke="#ef4444" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+  <path d="M480 150 L520 180 L560 160 L600 190" stroke="#ef4444" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+  <path d="M630 150 L670 170 L710 150" stroke="#ef4444" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+
+  <!-- Falling leads -->
+  <circle cx="220" cy="200" r="8" fill="#dc2626"/>
+  <circle cx="260" cy="180" r="8" fill="#ea580c"/>
+  <circle cx="370" cy="190" r="8" fill="#ca8a04"/>
+  <circle cx="410" cy="170" r="8" fill="#7c3aed"/>
+  <circle cx="520" cy="180" r="8" fill="#dc2626"/>
+  <circle cx="560" cy="160" r="8" fill="#ea580c"/>
+  <circle cx="670" cy="170" r="8" fill="#dc2626"/>
+  <circle cx="710" cy="150" r="8" fill="#ea580c"/>
+
+  <!-- Ground -->
+  <rect x="0" y="400" width="800" height="50" fill="#374151"/>
+  <text x="400" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#9ca3af">Lost leads and missed opportunities</text>
+
+  <text x="400" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#374151" font-weight="bold">Leads leaking / no follow-up</text>
+</svg>
