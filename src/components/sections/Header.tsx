@@ -8,8 +8,6 @@ import { useEffect, useState } from 'react';
 const NAV = [
   { href: '/modern-suite', label: 'Suite' },
   { href: '/about', label: 'About' },
-  { href: '/clients', label: 'Clients' },
-  { href: '/roadmap', label: 'Roadmap' },
   { href: '/outcomes', label: 'Results' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -46,7 +44,7 @@ export default function Header() {
         )}
       >
         <nav
-          className="container flex h-16 items-center justify-between"
+          className="container flex h-20 items-center justify-between"
           role="navigation"
           aria-label="Main navigation"
         >
@@ -61,23 +59,23 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-7">
+          <div className="hidden md:flex items-center gap-8">
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative text-white/90 hover:text-white transition-colors underline-offset-4 decoration-transparent hover:decoration-kpsGold font-medium group"
+                className="relative text-white/90 hover:text-white transition-all duration-300 font-medium px-3 py-2 rounded-lg hover:bg-white/10 group"
               >
                 <span className="flex items-center gap-2">{item.label}</span>
-                <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-kpsGold group-hover:w-full transition-all duration-300" />
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-kpsGold group-hover:w-4/5 transition-all duration-300" />
               </Link>
             ))}
             <Link
               href="/consultation"
               onClick={() => trackConsultationClick('header')}
-              className="rounded-full bg-kpsGold text-kpsNavy px-6 py-3 font-semibold hover:opacity-90 focus:ring-2 focus:ring-kpsGold/60 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="btn-cta btn-cta-outline ml-4"
             >
-              Book Call
+              Book Free Consultation
             </Link>
           </div>
 
@@ -85,9 +83,9 @@ export default function Header() {
           <button
             aria-label={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen(!open)}
-            className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg border border-white/20 text-white/90 hover:bg-white/10 transition-colors touch-manipulation"
+            className="md:hidden flex items-center justify-center w-12 h-12 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 hover:text-white transition-all duration-300 touch-manipulation"
           >
-            <span className="text-lg">{open ? '×' : '≡'}</span>
+            <span className="text-xl font-light">{open ? '×' : '☰'}</span>
           </button>
         </nav>
       </div>
@@ -110,8 +108,8 @@ export default function Header() {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3, ease: 'easeOut' }}
-              className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-kpsNavy text-white shadow-2xl"
+              transition={{ type: 'tween', duration: 0.4, ease: 'easeOut' }}
+              className="fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-kpsNavy text-white shadow-2xl border-l border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="p-6">
@@ -131,22 +129,26 @@ export default function Header() {
                 </div>
 
                 {/* Navigation Links */}
-                <div className="space-y-2 mb-8">
+                <div className="space-y-1 mb-8">
                   <Link
                     href="/"
                     onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 rounded-xl px-4 py-4 text-lg hover:bg-white/10 transition-colors touch-manipulation"
+                    className="flex items-center gap-3 rounded-xl px-4 py-4 text-lg hover:bg-white/10 transition-all duration-300 touch-manipulation group"
                   >
-                    <span>Home</span>
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">
+                      Home
+                    </span>
                   </Link>
                   {NAV.map((item) => (
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 rounded-xl px-4 py-4 text-lg hover:bg-white/10 transition-colors touch-manipulation"
+                      className="flex items-center gap-3 rounded-xl px-4 py-4 text-lg hover:bg-white/10 transition-all duration-300 touch-manipulation group"
                     >
-                      <span>{item.label}</span>
+                      <span className="group-hover:translate-x-1 transition-transform duration-300">
+                        {item.label}
+                      </span>
                     </Link>
                   ))}
                 </div>
@@ -158,26 +160,34 @@ export default function Header() {
                     setOpen(false);
                     trackConsultationClick('mobile_menu');
                   }}
-                  className="block w-full text-center rounded-full bg-kpsGold text-kpsNavy px-6 py-4 font-semibold hover:opacity-95 transition-opacity touch-manipulation"
+                  className="block w-full text-center btn-cta btn-cta-outline mb-6"
                 >
                   Book Free Consultation
                 </Link>
 
                 {/* Contact Info */}
-                <div className="mt-8 pt-6 border-t border-white/20 text-center">
-                  <div className="text-sm text-white/70 mb-2">Quick Contact</div>
-                  <a
-                    href="tel:14694586966"
-                    className="block text-white hover:text-kpsGold transition-colors mb-2 touch-manipulation"
-                  >
-                    (469) 458-6966
-                  </a>
-                  <a
-                    href="mailto:sales@thekpsgroup.com"
-                    className="block text-white hover:text-kpsGold transition-colors touch-manipulation"
-                  >
-                    sales@thekpsgroup.com
-                  </a>
+                <div className="pt-6 border-t border-white/20">
+                  <div className="text-sm text-white/70 mb-4 font-medium">Quick Contact</div>
+                  <div className="space-y-3">
+                    <a
+                      href="tel:14694586966"
+                      className="flex items-center gap-3 text-white hover:text-kpsGold transition-colors touch-manipulation group"
+                    >
+                      <span className="text-lg">📞</span>
+                      <span className="group-hover:translate-x-1 transition-transform duration-300">
+                        (469) 458-6966
+                      </span>
+                    </a>
+                    <a
+                      href="mailto:sales@thekpsgroup.com"
+                      className="flex items-center gap-3 text-white hover:text-kpsGold transition-colors touch-manipulation group"
+                    >
+                      <span className="text-lg">✉️</span>
+                      <span className="group-hover:translate-x-1 transition-transform duration-300">
+                        sales@thekpsgroup.com
+                      </span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>

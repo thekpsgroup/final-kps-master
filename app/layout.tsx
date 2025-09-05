@@ -50,6 +50,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <link
           rel="canonical"
           href={`${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.thekpsgroup.com'}/`}
@@ -76,6 +82,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             style={{ display: 'none', visibility: 'hidden' }}
           ></iframe>
         </noscript>
+        {/* Skip link for keyboard navigation */}
+        <a href="#main-content" className="skip-link" aria-label="Skip to main content">
+          Skip to main content
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -87,7 +97,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </Suspense>
           <ErrorBoundary>
             <Header />
-            <main className="pt-20">{children}</main>
+            <main id="main-content" className="pt-20" role="main">
+              {children}
+            </main>
             <Footer />
             <LazyExitIntentPopup />
             <FloatingReviews />

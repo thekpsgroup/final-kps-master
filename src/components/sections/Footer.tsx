@@ -15,63 +15,75 @@ export default function Footer() {
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 bg-kpsGold rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-10 right-10 w-24 h-24 bg-kpsNavy rounded-full blur-2xl animate-pulse delay-300" />
+        <div className="absolute bottom-10 right-10 w-24 h-24 bg-kpsNavy rounded-full blur-3xl animate-pulse delay-300" />
       </div>
       {/* Main Footer Content */}
-      <div className="container py-8 relative z-10">
-        <div className="grid gap-8 md:grid-cols-4">
+      <div className="container py-16 relative z-10">
+        <div className="grid gap-12 md:grid-cols-4 lg:gap-16">
           {/* Brand Section */}
-          <div>
+          <div className="md:col-span-1">
             <Link
               href="/"
-              className="flex items-center gap-2 mb-3 hover:opacity-80 transition-opacity"
+              className="flex items-center gap-2 mb-4 hover:opacity-80 transition-opacity"
             >
               <span className="inline-block h-3 w-3 rounded-full bg-kpsGold" aria-hidden="true" />
-              <span className="font-semibold text-white text-lg">The KPS Group</span>
+              <span className="font-semibold text-white text-xl">The KPS Group</span>
             </Link>
-            <p className="text-white/80 mb-4 text-sm leading-relaxed">
+            <p className="text-white/80 mb-6 text-base leading-relaxed">
               Complete business suite: payroll, finance, brand, ops, and IT solutions.
             </p>
 
             {/* Social Links */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <a
                 href="https://linkedin.com/company/thekpsgroup"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on LinkedIn"
-                className="text-white/70 hover:text-white transition-colors p-1.5 rounded-md hover:bg-white/10"
+                className="text-white/70 hover:text-white transition-all duration-300 p-2 rounded-lg hover:bg-white/10"
               >
-                <Linkedin className="h-4 w-4" />
+                <Linkedin className="h-5 w-5" />
               </a>
               <a
                 href="https://twitter.com/thekpsgroup"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow us on Twitter"
-                className="text-white/70 hover:text-white transition-colors p-1.5 rounded-md hover:bg-white/10"
+                className="text-white/70 hover:text-white transition-all duration-300 p-2 rounded-lg hover:bg-white/10"
               >
-                <Twitter className="h-4 w-4" />
+                <Twitter className="h-5 w-5" />
               </a>
             </div>
           </div>
 
           {/* Modern Suite Brands */}
           <div>
-            <h3 className="text-base font-semibold mb-3">Modern Suite</h3>
-            <div className="space-y-1">
-              {brandsConfig.slice(0, 4).map((brand) => (
-                <Link
-                  key={brand.slug}
-                  href={`/${brand.slug}`}
-                  className="block text-white/70 hover:text-white transition-colors text-sm"
-                >
-                  {brand.brandName}
-                </Link>
-              ))}
+            <h3 className="text-lg font-semibold mb-4 text-white">Modern Suite</h3>
+            <div className="space-y-3">
+              {brandsConfig.slice(0, 4).map((brand) =>
+                brand.externalUrl ? (
+                  <a
+                    key={brand.slug}
+                    href={brand.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-white/70 hover:text-white transition-all duration-300 text-base hover:translate-x-1"
+                  >
+                    {brand.brandName}
+                  </a>
+                ) : (
+                  <Link
+                    key={brand.slug}
+                    href={`/${brand.slug}`}
+                    className="block text-white/70 hover:text-white transition-all duration-300 text-base hover:translate-x-1"
+                  >
+                    {brand.brandName}
+                  </Link>
+                ),
+              )}
               <Link
                 href="/modern-suite"
-                className="block text-kpsGold hover:text-kpsGold/80 transition-colors text-sm font-medium mt-2"
+                className="block text-kpsGold hover:text-kpsGold/80 transition-all duration-300 text-base font-medium mt-4 hover:translate-x-1"
               >
                 View All →
               </Link>
@@ -80,13 +92,13 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-base font-semibold mb-3">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
             <nav aria-label="Footer navigation">
-              <ul className="space-y-1">
+              <ul className="space-y-3">
                 <li>
                   <Link
                     href="/outcomes"
-                    className="text-white/70 hover:text-white transition-colors text-sm"
+                    className="text-white/70 hover:text-white transition-all duration-300 text-base hover:translate-x-1 block"
                   >
                     Results
                   </Link>
@@ -94,7 +106,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/consultation"
-                    className="text-white/70 hover:text-white transition-colors text-sm"
+                    className="text-white/70 hover:text-white transition-all duration-300 text-base hover:translate-x-1 block"
                   >
                     Free Consultation
                   </Link>
@@ -102,7 +114,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/contact"
-                    className="text-white/70 hover:text-white transition-colors text-sm"
+                    className="text-white/70 hover:text-white transition-all duration-300 text-base hover:translate-x-1 block"
                   >
                     Contact
                   </Link>
@@ -110,7 +122,7 @@ export default function Footer() {
                 <li>
                   <Link
                     href="/about"
-                    className="text-white/70 hover:text-white transition-colors text-sm"
+                    className="text-white/70 hover:text-white transition-all duration-300 text-base hover:translate-x-1 block"
                   >
                     About
                   </Link>
@@ -121,23 +133,27 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-base font-semibold mb-3">Contact</h3>
-            <div className="space-y-2">
+            <h3 className="text-lg font-semibold mb-4 text-white">Contact</h3>
+            <div className="space-y-4">
               <a
                 href="mailto:sales@thekpsgroup.com"
-                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm group"
+                className="flex items-center gap-3 text-white/70 hover:text-white transition-all duration-300 text-base group"
                 onClick={trackEmailClick}
               >
-                <Mail className="h-3 w-3" />
-                sales@thekpsgroup.com
+                <Mail className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                <span className="group-hover:translate-x-1 transition-transform duration-300">
+                  sales@thekpsgroup.com
+                </span>
               </a>
               <a
                 href="tel:14694586966"
-                className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm group"
+                className="flex items-center gap-3 text-white/70 hover:text-white transition-all duration-300 text-base group"
                 onClick={trackPhoneClick}
               >
-                <Phone className="h-3 w-3" />
-                469-458-6966
+                <Phone className="h-5 w-5 group-hover:scale-110 transition-transform duration-300" />
+                <span className="group-hover:translate-x-1 transition-transform duration-300">
+                  (469) 458-6966
+                </span>
               </a>
             </div>
           </div>
@@ -146,14 +162,20 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="container py-3">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-white/70">
+        <div className="container py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/70">
             <span>© {currentYear} The KPS Group. All rights reserved.</span>
-            <div className="flex items-center gap-4">
-              <Link href="/privacy" className="hover:text-white transition-colors">
+            <div className="flex items-center gap-6">
+              <Link
+                href="/privacy"
+                className="hover:text-white transition-all duration-300 hover:translate-x-1"
+              >
                 Privacy
               </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
+              <Link
+                href="/terms"
+                className="hover:text-white transition-all duration-300 hover:translate-x-1"
+              >
                 Terms
               </Link>
             </div>

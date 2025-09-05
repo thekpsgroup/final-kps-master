@@ -32,7 +32,7 @@ const teamMembers = [
 
 export default function TeamShowcase() {
   return (
-    <section className="relative pt-24 pb-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-white via-kpsNavy/5 to-white" />
 
       <div className="container max-w-7xl relative">
@@ -41,9 +41,7 @@ export default function TeamShowcase() {
             <span>Team</span>
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-            The People Behind The Modern Suite
-          </h2>
+          <h2 className="h2 text-gray-900 mb-6">The People Behind The Modern Suite</h2>
 
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             We&apos;re a team of experienced operators who&apos;ve been in your shoes. From scaling
@@ -60,17 +58,17 @@ export default function TeamShowcase() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
+              transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
+              className="group will-change-transform"
             >
-              <div className="bg-white rounded-2xl shadow-soft border border-gray-200 overflow-hidden hover:shadow-glass transition-all duration-300">
+              <div className="bg-white rounded-2xl shadow-soft border border-gray-200 overflow-hidden hover:shadow-glass card-hover hover:-translate-y-2 h-full will-change-transform">
                 {/* Photo Container */}
-                <div className="relative h-80 bg-gradient-to-br from-kpsNavy/10 to-kpsGold/10">
+                <div className="relative h-80 bg-gradient-to-br from-kpsNavy/10 to-kpsGold/10 overflow-hidden">
                   <Image
                     src={member.image}
                     alt={`${member.name} - ${member.role}`}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover image-hover will-change-transform"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
 

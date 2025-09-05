@@ -49,42 +49,40 @@ export default function ClientShowcase() {
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
 
       <div className="container max-w-7xl relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-kpsGold/10 text-kpsGold rounded-full text-sm font-medium mb-4">
             Trusted Partners
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-            Companies We&apos;ve Helped Scale
-          </h2>
+          <h2 className="h2 text-gray-900 mb-6">Companies We&apos;ve Helped Scale</h2>
 
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="p-large max-w-3xl mx-auto leading-relaxed">
             From emergency services to manufacturing, we&apos;ve partnered with businesses across
             industries to streamline operations, reduce costs, and accelerate growth.
           </p>
         </div>
 
         {/* Featured Client Logos Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
           {clients.map((client, index) => (
             <motion.div
               key={client.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
+              transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
+              className="group will-change-transform"
             >
-              <div className="bg-white rounded-2xl p-6 shadow-soft border border-gray-200 hover:shadow-glass transition-all duration-300 hover:-translate-y-1 h-full">
+              <div className="bg-white rounded-2xl p-6 shadow-soft border border-gray-200 hover:shadow-glass card-hover hover:-translate-y-1 h-full will-change-transform">
                 <div className="flex flex-col items-center text-center h-full">
                   {/* Logo Container */}
-                  <div className="relative w-full h-16 mb-4 flex items-center justify-center bg-gray-50 rounded-xl p-4">
+                  <div className="relative w-full h-16 mb-4 flex items-center justify-center bg-gray-50 rounded-xl p-4 group">
                     <Image
                       src={client.logo}
                       alt={`${client.name} logo`}
                       width={120}
                       height={60}
-                      className="object-contain max-w-full max-h-full filter group-hover:scale-105 transition-transform duration-300"
+                      className="object-contain max-w-full max-h-full filter group-hover:scale-105 transition-transform duration-400 ease-out will-change-transform"
                       sizes="120px"
                     />
                   </div>
@@ -103,7 +101,7 @@ export default function ClientShowcase() {
         {/* Client Logos Collage */}
         <div className="bg-white rounded-3xl p-8 shadow-glass border border-gray-200 mb-12">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">More Success Stories</h3>
+            <h3 className="h3 text-gray-900 mb-2">More Success Stories</h3>
             <p className="text-gray-600">
               Additional clients we&apos;ve helped transform their operations
             </p>
@@ -159,7 +157,7 @@ export default function ClientShowcase() {
         </div>
 
         {/* Call to Action */}
-        <div className="text-center mt-16">
+        <div className="text-center mt-12">
           <div className="bg-white rounded-2xl p-8 shadow-soft border border-gray-200 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Ready to Join Our Success Stories?
@@ -169,16 +167,10 @@ export default function ClientShowcase() {
               solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/consultation"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-kpsNavy text-white rounded-full font-semibold hover:bg-kpsNavy/90 transition-colors"
-              >
+              <a href="/consultation" className="btn-cta btn-cta-primary">
                 Get Free Consultation
               </a>
-              <a
-                href="/modern-suite"
-                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-kpsNavy text-kpsNavy rounded-full font-semibold hover:bg-kpsNavy hover:text-white transition-colors"
-              >
+              <a href="/modern-suite" className="btn-cta btn-cta-secondary">
                 Explore Solutions
               </a>
             </div>

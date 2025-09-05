@@ -115,7 +115,30 @@ export default function EnhancedLeadForm({ brand, onSubmit, className }: Enhance
     setFormState((prev) => ({ ...prev, isSubmitting: true, submitError: null }));
 
     try {
-      await onSubmit?.(formState.values);
+      // If custom onSubmit is provided, use it
+      if (onSubmit) {
+        await onSubmit(formState.values);
+      } else {
+        // Default: submit to FormSubmit
+        const formData = new FormData();
+        Object.entries(formState.values).forEach(([key, value]) => {
+          if (value) formData.append(key, value);
+        });
+        formData.append('_captcha', 'false');
+        formData.append('_next', 'https://www.thekpsgroup.com/thank-you');
+        formData.append('_subject', `Branded Lead Form - ${brand.brandName}`);
+        formData.append('_honeypot', '');
+
+        const response = await fetch('https://formsubmit.co/sales@thekpsgroup.com', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Submission failed');
+        }
+      }
+
       setFormState((prev) => ({
         ...prev,
         isSubmitting: false,

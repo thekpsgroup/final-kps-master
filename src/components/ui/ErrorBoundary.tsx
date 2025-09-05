@@ -210,7 +210,7 @@ function ErrorFallback({ error, errorId, onRetry, className }: ErrorFallbackProp
         >
           <p className="text-sm text-gray-500 mb-2">Still having issues?</p>
           <a
-            href="mailto:support@yourcompany.com"
+            href="mailto:sales@thekpsgroup.com"
             className="text-sm text-blue-600 hover:text-blue-700 underline"
           >
             Contact Support

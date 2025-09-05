@@ -117,7 +117,7 @@ export default function HomePage() {
 
           {/* Decorative elements */}
           <div className="absolute top-1/4 -left-20 w-40 h-40 bg-kpsGold/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-20 w-32 h-32 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 -right-20 w-32 h-32 bg-kpsNavy/10 rounded-full blur-3xl" />
         </section>
 
         {/* Client Showcase */}

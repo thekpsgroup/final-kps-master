@@ -55,7 +55,7 @@ export default function ThankYouPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-20 pb-16">
+      <section className="py-24">
         <div className="container max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -69,10 +69,8 @@ export default function ThankYouPage() {
                 </div>
               </div>
             </div>
-            <h1 className="text-4xl md:text-5xl font-semibold mb-4 text-gray-900">
-              Thanks — we got it.
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h1 className="h1 mb-4 text-gray-900">Thanks — we got it.</h1>
+            <p className="body-large text-gray-600 mb-8 max-w-2xl mx-auto">
               We&apos;ll reach out the same business day. In the meantime, here&apos;s what happens
               next:
             </p>
@@ -81,7 +79,7 @@ export default function ThankYouPage() {
       </section>
 
       {/* Next Steps */}
-      <section className="pb-16">
+      <section className="py-24">
         <div className="container max-w-4xl">
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {NEXT_STEPS.map((step, i) => (
@@ -103,10 +101,10 @@ export default function ThankYouPage() {
       </section>
 
       {/* Lead Magnets */}
-      <section className="pb-16">
+      <section className="py-24">
         <div className="container max-w-4xl">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-3">
+            <h2 className="h2 md:text-3xl font-semibold text-gray-900 mb-3">
               Free Resources While You Wait
             </h2>
             <p className="text-gray-600">
@@ -145,7 +143,7 @@ export default function ThankYouPage() {
       </section>
 
       {/* Social Proof */}
-      <section className="pb-16">
+      <section className="py-24">
         <div className="container max-w-3xl">
           <GlassCard className="p-8 text-center">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
@@ -170,12 +168,9 @@ export default function ThankYouPage() {
       </section>
 
       {/* CTA */}
-      <section className="pb-20">
+      <section className="py-24">
         <div className="container max-w-3xl text-center">
-          <Link
-            href="/modern-suite"
-            className="inline-flex items-center gap-2 rounded-full bg-kpsNavy px-6 py-3 text-white font-medium shadow-md hover:opacity-95"
-          >
+          <Link href="/modern-suite" className="btn-cta btn-cta-primary">
             Explore the Modern Suite
           </Link>
         </div>

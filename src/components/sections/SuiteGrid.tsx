@@ -64,19 +64,17 @@ const brands: Brand[] = [
 
 export default function SuiteGrid() {
   return (
-    <section className="relative pt-20 pb-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
 
       <div className="container max-w-7xl relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-kpsNavy/10 text-kpsNavy rounded-full text-sm font-medium mb-4">
             Your Complete Back-Office
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-            Five Departments, One Partner
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <h2 className="h2 text-gray-900 mb-6">Five Departments, One Partner</h2>
+          <p className="p-large max-w-3xl mx-auto leading-relaxed">
             We handle your bookkeeping, payroll, tech support, websites, software development, and
             operations—so you can focus on what you do best with better information.
           </p>
@@ -89,11 +87,8 @@ export default function SuiteGrid() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <a
-            href="/modern-suite"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-kpsNavy text-white rounded-full font-semibold hover:opacity-90 transition-all duration-300 shadow-xl hover:shadow-2xl"
-          >
+        <div className="text-center mt-12">
+          <a href="/modern-suite" className="btn-cta btn-cta-primary">
             <span>Explore All Services</span>
           </a>
 
@@ -106,8 +101,8 @@ export default function SuiteGrid() {
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-1/4 -left-20 w-40 h-40 bg-kpsGold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-20 w-32 h-32 bg-kpsNavy/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/4 -left-20 w-40 h-40 bg-kpsGold/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 -right-20 w-32 h-32 bg-kpsNavy/10 rounded-full blur-3xl" />
     </section>
   );
 }

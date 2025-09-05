@@ -5,16 +5,17 @@ import { motion } from 'framer-motion';
 export default function HeroClient() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.1 }}
+      transition={{ duration: 0.4, delay: 0.2, ease: 'easeOut' }}
       className="mt-6 flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto"
     >
       <motion.a
         href="/consultation"
-        className="inline-flex items-center justify-center gap-3 rounded-full bg-kpsNavy px-6 py-4 text-white font-semibold shadow-xl hover:shadow-2xl hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-kpsGold/70 transition-all duration-300 text-center min-h-[56px]"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        className="btn-cta btn-cta-primary"
+        whileHover={{ scale: 1.01, y: -1 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
         onClick={() => trackConsultationClick('hero')}
       >
         <span>Get Free Back-Office Audit</span>
@@ -22,9 +23,10 @@ export default function HeroClient() {
 
       <motion.a
         href="/modern-suite"
-        className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-kpsNavy bg-white px-6 py-4 text-kpsNavy font-semibold shadow-lg hover:bg-kpsNavy hover:text-white transition-all duration-300 text-center min-h-[56px]"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        className="btn-cta btn-cta-secondary"
+        whileHover={{ scale: 1.01, y: -1 }}
+        whileTap={{ scale: 0.99 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
       >
         <span>See Your Back-Office Solution</span>
       </motion.a>

@@ -48,18 +48,20 @@ export default function SqueezePageTemplate({ brand }: SqueezePageTemplateProps)
       return;
     }
 
-    // Send to API route (we'll create this next)
+    // Submit to FormSubmit
     try {
-      const response = await fetch('/api/lead', {
+      const submitData = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        submitData.append(key, value);
+      });
+      submitData.append('_captcha', 'false');
+      submitData.append('_next', 'https://www.thekpsgroup.com/thank-you');
+      submitData.append('_subject', `Squeeze Page Lead - ${brand.brandName}`);
+      submitData.append('_honeypot', '');
+
+      const response = await fetch('https://formsubmit.co/sales@thekpsgroup.com', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          brand: brand.brandName,
-          source: 'squeeze_page',
-        }),
+        body: submitData,
       });
 
       if (response.ok) {
@@ -522,8 +524,8 @@ export default function SqueezePageTemplate({ brand }: SqueezePageTemplateProps)
             href="/"
             className="flex items-center justify-center gap-2 text-white/80 hover:text-white transition-colors mb-4"
           >
-            <span className="inline-block h-2 w-2 rounded-full bg-kpsGold" />
-            <span className="font-medium">The KPS Group</span>
+            <span className="inline-block h-3 w-3 rounded-full bg-kpsGold" />
+            <span className="font-semibold text-lg">The KPS Group</span>
           </Link>
           <p className="text-white/60 text-sm">
             © {new Date().getFullYear()} The KPS Group. All rights reserved.

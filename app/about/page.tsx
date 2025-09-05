@@ -24,12 +24,12 @@ export default function AboutPage() {
                 <span>About The KPS Group</span>
               </div>
 
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              <h1 className="h1 text-gray-900 mb-6">
                 Building the Future of
                 <span className="block text-kpsNavy">Business Operations</span>
               </h1>
 
-              <p className="text-xl text-gray-600 leading-relaxed mb-8">
+              <p className="body-large text-gray-600 leading-relaxed mb-8">
                 We provide premium business solutions through our selective, boutique approach.
                 Founded by operators, for operators — we partner with exceptional businesses that
                 deserve world-class systems and personalized service.
@@ -86,8 +86,8 @@ export default function AboutPage() {
               </div>
 
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-kpsGold/20 rounded-full blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-kpsNavy/20 rounded-full blur-2xl" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-kpsGold/10 rounded-full blur-3xl" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-kpsNavy/10 rounded-full blur-3xl" />
             </div>
           </div>
         </div>
@@ -97,8 +97,8 @@ export default function AboutPage() {
       <section className="py-24 bg-gray-50">
         <div className="container max-w-4xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <h2 className="h2 tracking-tight text-gray-900 mb-6">Our Story</h2>
+            <p className="body-large text-gray-600 leading-relaxed">
               From identifying a problem to building the solution — here&apos;s how The KPS Group
               came to be.
             </p>
@@ -179,16 +179,10 @@ export default function AboutPage() {
               approach to client partnerships.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/modern-suite"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-kpsNavy rounded-full font-semibold hover:bg-white/90 transition-colors"
-              >
+              <a href="/modern-suite" className="btn-cta btn-cta-secondary">
                 Explore Our Solutions
               </a>
-              <a
-                href="/consultation"
-                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white/10 transition-colors"
-              >
+              <a href="/consultation" className="btn-cta btn-cta-outline">
                 Start Your Journey
               </a>
             </div>

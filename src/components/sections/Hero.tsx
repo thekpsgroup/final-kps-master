@@ -3,7 +3,7 @@ import HeroClient from './HeroClient';
 
 export default function Hero() {
   return (
-    <section className="relative pt-32 pb-24 overflow-hidden">
+    <section className="relative pt-24 pb-24 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-kpsNavy/5 via-transparent to-kpsGold/5" />
 
@@ -33,14 +33,14 @@ export default function Hero() {
             </div>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-6 md:mb-8 leading-tight">
+          <h1 className="h1 text-gray-900 mb-6 md:mb-8">
             Your Outsourced
             <span className="block text-kpsNavy">Back-Office</span>
           </h1>
 
           <div className="mx-auto mt-6 h-px w-24 bg-kpsNavy" />
 
-          <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="body-large max-w-3xl mx-auto mb-8">
             We handle your bookkeeping, payroll, tech support, websites, software, and operations
             consulting—so you can focus on running your business with{' '}
             <span className="font-semibold text-kpsNavy bg-kpsGold/20 px-3 py-1 rounded-lg">
@@ -50,25 +50,25 @@ export default function Hero() {
 
           {/* Financial empowerment message */}
           <div className="max-w-2xl mx-auto mb-8">
-            <p className="text-lg text-gray-700 font-medium">
+            <p className="body-large text-gray-700 font-medium">
               We believe business owners should know more about their finances than their
               accountant.
             </p>
-            <p className="text-base text-gray-600 mt-2">
+            <p className="body text-gray-600 mt-2">
               Through deep personal relationships, we help you understand where your money goes and
               how to increase profits.
             </p>
           </div>
 
           {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-8 text-sm text-gray-500 mb-12">
-            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full">
+          <div className="flex items-center justify-center gap-4 md:gap-8 text-sm text-gray-500 mb-12">
+            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full smooth-hover hover:bg-gray-100 hover:shadow-sm transition-all duration-300">
               <span className="font-medium text-gray-700">Setup in 24 hours</span>
             </div>
-            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full">
+            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full smooth-hover hover:bg-gray-100 hover:shadow-sm transition-all duration-300">
               <span className="font-medium text-gray-700">Bank-level security</span>
             </div>
-            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full">
+            <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full smooth-hover hover:bg-gray-100 hover:shadow-sm transition-all duration-300">
               <span className="font-medium text-gray-700">24/7 support</span>
             </div>
           </div>
@@ -78,8 +78,8 @@ export default function Hero() {
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-kpsGold/10 rounded-full blur-2xl" />
-      <div className="absolute bottom-20 right-10 w-24 h-24 bg-kpsNavy/10 rounded-full blur-2xl" />
+      <div className="absolute top-20 left-10 w-32 h-32 bg-kpsGold/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-24 h-24 bg-kpsNavy/10 rounded-full blur-3xl animate-pulse delay-300" />
     </section>
   );
 }

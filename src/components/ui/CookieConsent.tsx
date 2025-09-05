@@ -376,12 +376,12 @@ export default function CookieConsent({
                   className="text-xs text-gray-500 mt-4 text-center"
                 >
                   For more information, see our{' '}
-                  <a href="/privacy-policy" className="underline hover:no-underline">
+                  <a href="/privacy" className="underline hover:no-underline">
                     Privacy Policy
                   </a>{' '}
                   and{' '}
-                  <a href="/cookie-policy" className="underline hover:no-underline">
-                    Cookie Policy
+                  <a href="/terms" className="underline hover:no-underline">
+                    Terms of Service
                   </a>
                   .
                 </motion.p>

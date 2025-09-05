@@ -1,8 +1,8 @@
-"use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { trackFormSubmit, gtmEvent } from "@/lib/gtm";
-import GlassCard from "@/components/ui/GlassCard";
+'use client';
+import GlassCard from '@/components/ui/GlassCard';
+import { gtmEvent, trackFormSubmit } from '@/lib/gtm';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 type FormData = {
   name: string;
@@ -16,26 +16,32 @@ type FormData = {
 };
 
 const CHALLENGES = [
-  "Payroll errors and compliance issues",
-  "Messy books and financial reporting",
-  "Inconsistent branding and poor website",
-  "Chaotic operations and scheduling",
-  "IT problems and security concerns"
+  'Payroll errors and compliance issues',
+  'Messy books and financial reporting',
+  'Inconsistent branding and poor website',
+  'Chaotic operations and scheduling',
+  'IT problems and security concerns',
 ];
 
 export default function ConsultationForm() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    name: "", email: "", company: "", revenue: "", employees: "",
-    challenges: [], priority: "", timeline: ""
+    name: '',
+    email: '',
+    company: '',
+    revenue: '',
+    employees: '',
+    challenges: [],
+    priority: '',
+    timeline: '',
   });
 
   const handleChallengeToggle = (challenge: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       challenges: prev.challenges.includes(challenge)
-        ? prev.challenges.filter(c => c !== challenge)
-        : [...prev.challenges, challenge]
+        ? prev.challenges.filter((c) => c !== challenge)
+        : [...prev.challenges, challenge],
     }));
   };
 
@@ -49,11 +55,12 @@ export default function ConsultationForm() {
     submitData.append('_captcha', 'false');
     submitData.append('_next', 'https://www.thekpsgroup.com/thank-you');
     submitData.append('_subject', `High-Intent Consultation Request - ${formData.company}`);
+    submitData.append('_honeypot', '');
 
     try {
       await fetch('https://formsubmit.co/sales@thekpsgroup.com', {
         method: 'POST',
-        body: submitData
+        body: submitData,
       });
       window.location.href = '/thank-you';
     } catch {
@@ -78,14 +85,19 @@ export default function ConsultationForm() {
 
       <AnimatePresence mode="wait">
         {step === 1 && (
-          <motion.div key="step1" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }}>
+          <motion.div
+            key="step1"
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+          >
             <h3 className="text-lg font-medium mb-4">Let&apos;s start with the basics</h3>
             <div className="space-y-4">
               <input
                 type="text"
                 placeholder="Your name *"
                 value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full rounded-xl border border-black/10 px-4 py-3 focus:ring-2 focus:ring-kpsNavy/40"
                 required
               />
@@ -93,7 +105,7 @@ export default function ConsultationForm() {
                 type="email"
                 placeholder="Email address *"
                 value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full rounded-xl border border-black/10 px-4 py-3 focus:ring-2 focus:ring-kpsNavy/40"
                 required
               />
@@ -101,7 +113,7 @@ export default function ConsultationForm() {
                 type="text"
                 placeholder="Company name"
                 value={formData.company}
-                onChange={(e) => setFormData({...formData, company: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                 className="w-full rounded-xl border border-black/10 px-4 py-3 focus:ring-2 focus:ring-kpsNavy/40"
               />
             </div>
@@ -121,12 +133,17 @@ export default function ConsultationForm() {
         )}
 
         {step === 2 && (
-          <motion.div key="step2" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }}>
+          <motion.div
+            key="step2"
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+          >
             <h3 className="text-lg font-medium mb-4">Tell us about your business</h3>
             <div className="space-y-4">
               <select
                 value={formData.revenue}
-                onChange={(e) => setFormData({...formData, revenue: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, revenue: e.target.value })}
                 className="w-full rounded-xl border border-black/10 px-4 py-3 focus:ring-2 focus:ring-kpsNavy/40"
               >
                 <option value="">Annual revenue</option>
@@ -138,7 +155,7 @@ export default function ConsultationForm() {
               </select>
               <select
                 value={formData.employees}
-                onChange={(e) => setFormData({...formData, employees: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
                 className="w-full rounded-xl border border-black/10 px-4 py-3 focus:ring-2 focus:ring-kpsNavy/40"
               >
                 <option value="">Number of employees</option>
@@ -170,11 +187,19 @@ export default function ConsultationForm() {
         )}
 
         {step === 3 && (
-          <motion.div key="step3" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }}>
+          <motion.div
+            key="step3"
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+          >
             <h3 className="text-lg font-medium mb-4">What challenges are you facing?</h3>
             <div className="space-y-3">
               {CHALLENGES.map((challenge) => (
-                <label key={challenge} className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                <label
+                  key={challenge}
+                  className="flex items-start gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer"
+                >
                   <input
                     type="checkbox"
                     checked={formData.challenges.includes(challenge)}
@@ -206,22 +231,32 @@ export default function ConsultationForm() {
         )}
 
         {step === 4 && (
-          <motion.div key="step4" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }}>
+          <motion.div
+            key="step4"
+            initial={{ x: 20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -20, opacity: 0 }}
+          >
             <h3 className="text-lg font-medium mb-4">When do you want to get started?</h3>
             <div className="space-y-3">
-              {["Immediately", "Within 30 days", "Within 90 days", "Just exploring"].map((option) => (
-                <label key={option} className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="timeline"
-                    value={option}
-                    checked={formData.timeline === option}
-                    onChange={(e) => setFormData({...formData, timeline: e.target.value})}
-                    className="text-kpsNavy focus:ring-kpsNavy/40"
-                  />
-                  <span>{option}</span>
-                </label>
-              ))}
+              {['Immediately', 'Within 30 days', 'Within 90 days', 'Just exploring'].map(
+                (option) => (
+                  <label
+                    key={option}
+                    className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      name="timeline"
+                      value={option}
+                      checked={formData.timeline === option}
+                      onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
+                      className="text-kpsNavy focus:ring-kpsNavy/40"
+                    />
+                    <span>{option}</span>
+                  </label>
+                ),
+              )}
             </div>
             <div className="flex gap-3 mt-6">
               <button

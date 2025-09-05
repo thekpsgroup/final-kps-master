@@ -80,7 +80,24 @@ export default function AdaptiveLeadForm({ interestDefault, onSuccess }: Adaptiv
     },
     onSubmit: async (values) => {
       // Track successful conversion
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const formData = new FormData();
+      Object.entries(values).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      formData.append('_captcha', 'false');
+      formData.append('_next', 'https://www.thekpsgroup.com/thank-you');
+      formData.append('_subject', 'Adaptive Lead Form Submission');
+      formData.append('_honeypot', '');
+
+      const response = await fetch('https://formsubmit.co/sales@thekpsgroup.com', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
       onSuccess?.(values);
     },
   });
