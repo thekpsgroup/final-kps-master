@@ -1,15 +1,15 @@
 'use client';
 
+import type { GtagFunction } from '@/types/gtag';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import type { GtagFunction } from '@/types/gtag';
 
 const GA_TRACKING_ID = 'G-SFELJ2R95K';
 
 declare global {
   interface Window {
     dataLayer: unknown[];
-    gtag: GtagFunction;
+    gtag?: GtagFunction;
   }
 }
 

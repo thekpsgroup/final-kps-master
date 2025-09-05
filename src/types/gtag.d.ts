@@ -13,4 +13,3 @@ declare global {
 
 // This export is needed for .d.ts files to be treated as modules
 export {};
-}
