@@ -2,21 +2,9 @@ import type { CityName } from '@/lib/cityData';
 import { getCityData } from '@/lib/cityData';
 import DFWServicesGrid from '@/components/DFWServicesGrid';
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Script from 'next/script';
-
-const VideoTestimonial = dynamic(
-  () => import('@/components/VideoTestimonial') as Promise<{
-    default: React.ComponentType<{
-      src?: string;
-      poster?: string;
-      width?: number;
-      height?: number;
-    }>;
-  }>,
-  { ssr: false }
-);
+import VideoTestimonialWrapper from './VideoTestimonialWrapper';
 
 interface CityPageProps {
   city: CityName;
@@ -122,10 +110,10 @@ export default function CityPage({ city }: CityPageProps) {
           <section className="mt-8">
             <h3 className="text-lg font-semibold">Customer Testimonial</h3>
             <p className="mt-2 text-gray-600">
-              "They transformed our back-office and payroll — true pros."
+              &ldquo;They transformed our back-office and payroll — true pros.&rdquo;
             </p>
             <div className="mt-4">
-              <VideoTestimonial src="/videos/dfw-testimonial.mp4" poster="/videos/dfw-poster.svg" />
+              <VideoTestimonialWrapper src="/videos/dfw-testimonial.mp4" poster="/videos/dfw-poster.svg" />
             </div>
           </section>
 
