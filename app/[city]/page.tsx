@@ -9,11 +9,32 @@ export function generateStaticParams() {
   }));
 }
 
-interface CityRouteProps {
+import { Metadata } from 'next';
+
+type CityRouteProps = {
   params: { city: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({ params }: CityRouteProps): Promise<Metadata> {
+  const cityName = serviceAreaCities.find(
+    (city) => slugifyCity(city) === params.city
+  ) as CityName;
+
+  if (!cityName) {
+    return {
+      title: 'City Not Found',
+      description: 'The requested city page could not be found.',
+    };
+  }
+
+  return {
+    title: `${cityName} Business Services | The KPS Group`,
+    description: `Professional business services in ${cityName}. Expert payroll, bookkeeping, and back-office solutions for local businesses.`,
+  };
 }
 
-export default function CityRoute({ params }: CityRouteProps) {
+export default async function CityRoute({ params }: CityRouteProps) {
   // Find the city name from the slug
   const cityName = serviceAreaCities.find(
     (city) => slugifyCity(city) === params.city
