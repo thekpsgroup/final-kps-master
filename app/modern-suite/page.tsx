@@ -1,5 +1,5 @@
 import { brandsConfig } from '@/config/brandsConfig';
-import { motion } from 'framer-motion';
+// framer-motion is client-only; do not import it in a server component
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -105,13 +105,9 @@ export default function ModernSuitePage() {
           </div>
 
           <div className="grid gap-8">
-            {brandsConfig.map((brand, index) => (
-              <motion.div
+            {brandsConfig.map((brand) => (
+              <div
                 key={brand.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 group"
               >
                 <div className="grid md:grid-cols-3 gap-8 items-center">
@@ -156,7 +152,7 @@ export default function ModernSuitePage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

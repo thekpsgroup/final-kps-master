@@ -1,5 +1,5 @@
 import GlassCard from '@/components/ui/GlassCard';
-import { motion } from 'framer-motion';
+// framer-motion is client-only; avoid using motion in this server-rendered page
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -106,29 +106,17 @@ export default function OutcomesPage() {
       <section className="py-24">
         <div className="container max-w-3xl">
           <div className="mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="h1 text-gray-900 mb-3 md:mb-4"
-            >
-              Outcomes you can feel on the P&amp;L
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.05 }}
-              className="body-large text-gray-600 max-w-2xl mx-auto leading-relaxed"
-            >
+            <h1 className="h1 text-gray-900 mb-3 md:mb-4">Outcomes you can feel on the P&amp;L</h1>
+            <p className="body-large text-gray-600 max-w-2xl mx-auto leading-relaxed">
               We don&apos;t sell shiny software. We implement the boring, proven stuff that moves
               cash flow, capacity, and confidence.
-            </motion.p>
+            </p>
             <div className="mt-6">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <div>
                 <Link href="/consultation" className="btn-cta btn-cta-primary">
                   Book Consultation
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -138,19 +126,13 @@ export default function OutcomesPage() {
       <section className="py-24">
         <div className="container max-w-6xl">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {kpis.map((k, i) => (
-              <motion.div
-                key={k.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                viewport={{ once: true }}
-              >
+            {kpis.map((k) => (
+              <div key={k.label}>
                 <GlassCard className="p-6 text-center border border-black/5 shadow-glass">
                   <div className="text-3xl font-semibold text-kpsNavy">{k.value}</div>
                   <div className="mt-2 text-sm text-gray-600">{k.label}</div>
                 </GlassCard>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -167,14 +149,8 @@ export default function OutcomesPage() {
           </p>
 
           <div className="mt-8 grid gap-6 md:grid-cols-3">
-            {studies.map((s, i) => (
-              <motion.div
-                key={s.title}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                viewport={{ once: true }}
-              >
+            {studies.map((s) => (
+              <div key={s.title}>
                 <GlassCard className="p-6 border border-black/5 shadow-glass">
                   <div className="text-lg font-semibold">{s.title}</div>
                   <div className="mt-1 text-kpsNavy font-medium">{s.result}</div>
@@ -186,7 +162,7 @@ export default function OutcomesPage() {
                     ))}
                   </ul>
                 </GlassCard>
-              </motion.div>
+              </div>
             ))}
           </div>
 
@@ -203,14 +179,8 @@ export default function OutcomesPage() {
         <div className="container max-w-6xl">
           <h2 className="h2 tracking-tight text-gray-900 mb-3 md:mb-4 text-center">How we work</h2>
           <div className="mt-8 grid gap-6 md:grid-cols-4">
-            {steps.map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                viewport={{ once: true }}
-              >
+            {steps.map((s) => (
+              <div key={s.n}>
                 <GlassCard className="p-6 flex flex-col border border-black/5 shadow-glass">
                   <div className="h-6 w-6 flex items-center justify-center rounded-full bg-kpsNavy text-white text-xs font-bold mb-1">
                     {s.n}
@@ -218,7 +188,7 @@ export default function OutcomesPage() {
                   <div className="text-lg font-semibold">{s.h}</div>
                   <p className="mt-2 text-gray-600 leading-relaxed">{s.p}</p>
                 </GlassCard>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

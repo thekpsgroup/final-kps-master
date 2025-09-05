@@ -1,5 +1,5 @@
 import GlassCard from '@/components/ui/GlassCard';
-import { motion } from 'framer-motion';
+// framer-motion is client-only; avoid using motion components in this server page
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -86,24 +86,12 @@ export default function FounderPage() {
       <section className="py-24">
         <div className="container max-w-3xl">
           <div className="mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <h1 className="h1 text-gray-900 mb-3 md:mb-4">Karson Lawrence — Founder &amp; CEO</h1>
-            </motion.h1>
+            <h1 className="h1 text-gray-900 mb-3 md:mb-4">Karson Lawrence — Founder &amp; CEO</h1>
             <div className="mx-auto mt-4 h-px w-16 bg-kpsNavy/20" />
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.05 }}
-            >
-              <div className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Visionary owner of The KPS Group. Pragmatic by default. Forward-leaning without the
-                fluff.
-              </div>
-            </motion.p>
+            <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Visionary owner of The KPS Group. Pragmatic by default. Forward-leaning without the
+              fluff.
+            </p>
           </div>
         </div>
       </section>

@@ -1,3 +1,5 @@
+"use client";
+
 import AnimatedCounter from '@/components/ui/AnimatedCounter';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

@@ -4,9 +4,11 @@
 import { analytics } from '@/components/GoogleAnalytics';
 
 // gtag is declared in ab-testing.ts
+import type { GtagFunction } from '@/types/gtag';
+
 declare global {
   interface Window {
-    gtag?: (...args: unknown[]) => void;
+    gtag?: GtagFunction;
   }
 }
 
@@ -19,7 +21,7 @@ interface FormAnalyticsEvent {
   timestamp: number;
   sessionId: string;
   userId?: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 class FormAnalytics {
@@ -112,12 +114,12 @@ class FormAnalytics {
 
 
   // Public methods for form tracking
-  trackFormStart(formId: string, metadata?: Record<string, any>) {
+  trackFormStart(formId: string, metadata?: Record<string, unknown>) {
     this.trackEvent({
       eventType: 'form_start',
       formId,
       timestamp: Date.now(),
-      metadata
+      metadata,
     });
   }
 
@@ -140,12 +142,12 @@ class FormAnalytics {
     });
   }
 
-  trackFormSubmit(formId: string, formData: Record<string, any>) {
+  trackFormSubmit(formId: string, formData: Record<string, unknown>) {
     this.trackEvent({
       eventType: 'form_submit',
       formId,
       timestamp: Date.now(),
-      metadata: { fieldCount: Object.keys(formData).length }
+      metadata: { fieldCount: Object.keys(formData).length },
     });
   }
 
@@ -163,7 +165,7 @@ export const formAnalytics = new FormAnalytics();
 
 // React hook for form analytics
 export function useFormAnalytics(formId: string) {
-  const trackStart = (metadata?: Record<string, any>) => {
+  const trackStart = (metadata?: Record<string, unknown>) => {
     formAnalytics.trackFormStart(formId, metadata);
   };
 
@@ -175,7 +177,7 @@ export function useFormAnalytics(formId: string) {
     formAnalytics.trackFieldError(formId, fieldName, error);
   };
 
-  const trackSubmit = (formData: Record<string, any>) => {
+  const trackSubmit = (formData: Record<string, unknown>) => {
     formAnalytics.trackFormSubmit(formId, formData);
   };
 
