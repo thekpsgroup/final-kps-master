@@ -1,4 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer';
+import { cwd } from 'process';
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
@@ -7,7 +8,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Fix workspace root detection
-  outputFileTracingRoot: __dirname,
+  outputFileTracingRoot: cwd(),
 
   // Enhanced Image optimization with aspect ratio support
   images: {
