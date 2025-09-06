@@ -21,6 +21,7 @@ export default function PerformanceMonitor() {
   useEffect(() => {
     // Web Vitals tracking
     if (typeof window !== 'undefined') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       import('web-vitals').then((webVitals: any) => {
         // Cumulative Layout Shift
         webVitals.getCLS((metric: { value: number }) => {

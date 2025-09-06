@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { designTokens, applyDesignTokens } from '@/lib/designTokens';
+import { applyDesignTokens } from '@/lib/designTokens';
 
 // Global State Types
 interface UserPreferences {
@@ -334,7 +334,7 @@ export function GlobalStateProvider({ children }: { children: ReactNode }) {
   // Detect network quality
   useEffect(() => {
     if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
+      const connection = (navigator as Navigator & { connection?: { effectiveType: string; addEventListener: (type: string, listener: EventListener) => void; removeEventListener: (type: string, listener: EventListener) => void } }).connection;
       if (connection) {
         const updateNetworkQuality = () => {
           const quality = connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g'

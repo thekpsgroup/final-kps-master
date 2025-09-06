@@ -137,7 +137,7 @@ export default function BeforeAfterShowcase({
                     {item.testimonial && (
                       <div className="bg-white rounded-xl p-4 shadow-sm">
                         <blockquote className="text-gray-700 mb-3">
-                          "{item.testimonial.quote}"
+                          &ldquo;{item.testimonial.quote}&rdquo;
                         </blockquote>
                         <cite className="text-sm text-gray-600">
                           — {item.testimonial.author}, {item.testimonial.company}

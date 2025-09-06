@@ -125,7 +125,7 @@ class BehavioralAnalytics {
       x: e.clientX,
       y: e.clientY,
       timestamp: Date.now(),
-      velocity: this.calculateVelocity(e)
+      velocity: this.calculateVelocity()
     });
 
     // Keep only last 100 movements for performance
@@ -204,7 +204,7 @@ class BehavioralAnalytics {
   }
 
   private updateConversionProbability() {
-    const { formBehavior, interactions, deviceInfo } = this.behavior;
+    const { formBehavior, deviceInfo } = this.behavior;
 
     let probability = 0.5; // Base probability
 
@@ -336,7 +336,7 @@ class BehavioralAnalytics {
     return 'referral';
   }
 
-  private calculateVelocity(e: MouseEvent): number {
+  private calculateVelocity(): number {
     if (this.mouseMovements.length < 2) return 0;
 
     const current = this.mouseMovements[this.mouseMovements.length - 1];
@@ -383,7 +383,7 @@ class BehavioralAnalytics {
 
   private detectMouseHesitation(e: MouseEvent) {
     // Simple hesitation detection - slow movement near form elements
-    const velocity = this.calculateVelocity(e);
+    const velocity = this.calculateVelocity();
     if (velocity < 0.1) { // Very slow movement
       const element = document.elementFromPoint(e.clientX, e.clientY) as HTMLElement;
       if (element && (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA' || element.closest('form'))) {

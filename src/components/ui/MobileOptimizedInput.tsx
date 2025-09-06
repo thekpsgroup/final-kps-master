@@ -23,7 +23,7 @@ export default function MobileOptimizedInput({
 }: MobileOptimizedInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { gesture } = useTouch(inputRef);
+  useTouch(inputRef);
 
   // Haptic feedback for mobile
   const triggerHaptic = () => {
@@ -51,10 +51,6 @@ export default function MobileOptimizedInput({
     onBlur?.();
   };
 
-  // Enhanced touch feedback
-  const handleTouchStart = () => {
-    triggerHaptic();
-  };
 
   return (
     <motion.div

@@ -89,7 +89,6 @@ export function useOptimizedInView({
     // Performance logging (development only)
     if (process.env.NODE_ENV === 'development' && performanceMode) {
       const performanceInterval = setInterval(() => {
-        const fps = performanceRef.current.callbackCount * (1000 / 100); // Approximate FPS
         if (performanceRef.current.frameDrops > 0) {
           console.warn(`useOptimizedInView: ${performanceRef.current.frameDrops} frame drops detected. Consider reducing animation complexity.`);
         }
@@ -129,7 +128,7 @@ export function OptimizedMotionDiv({
   style?: React.CSSProperties;
   [key: string]: unknown;
 }) {
-  const { ref, isInView, hasBeenInView } = useOptimizedInView({
+  const { ref, isInView } = useOptimizedInView({
     threshold: 0.1,
     triggerOnce: true,
     performanceMode: true
@@ -282,15 +281,17 @@ export class AnimationPerformanceManager {
   private checkMemoryPressure(): void {
     // Check memory usage if available
     if ('memory' in performance) {
-      const memory = (performance as any).memory;
-      const pressureThreshold = memory.jsHeapSizeLimit * 0.8;
+      const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+      if (memory) {
+        const pressureThreshold = memory.jsHeapSizeLimit * 0.8;
 
-      if (memory.usedJSHeapSize > pressureThreshold && !this.memoryPressure) {
-        this.memoryPressure = true;
-        this.enablePerformanceMode();
-      } else if (memory.usedJSHeapSize < pressureThreshold * 0.6 && this.memoryPressure) {
-        this.memoryPressure = false;
-        this.disablePerformanceMode();
+        if (memory.usedJSHeapSize > pressureThreshold && !this.memoryPressure) {
+          this.memoryPressure = true;
+          this.enablePerformanceMode();
+        } else if (memory.usedJSHeapSize < pressureThreshold * 0.6 && this.memoryPressure) {
+          this.memoryPressure = false;
+          this.disablePerformanceMode();
+        }
       }
     }
   }

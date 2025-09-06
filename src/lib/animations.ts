@@ -323,6 +323,7 @@ export class AnimationPerformance {
 
   // Check if animations should be reduced for performance or accessibility
   shouldReduceMotion(): boolean {
+    if (typeof window === 'undefined') return this.fps < 50;
     return this.fps < 50 || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 }

@@ -26,7 +26,7 @@ interface UseAdvancedFormProps<T> {
   validateOnBlur?: boolean;
 }
 
-export function useAdvancedForm<T extends Record<string, any>>({
+export function useAdvancedForm<T extends Record<string, unknown>>({
   initialValues,
   validationRules = {},
   onSubmit,
@@ -37,7 +37,7 @@ export function useAdvancedForm<T extends Record<string, any>>({
     const initialFields = {} as Record<keyof T, FormField>;
     Object.keys(initialValues).forEach((key) => {
       initialFields[key as keyof T] = {
-        value: initialValues[key as keyof T] || '',
+        value: String(initialValues[key as keyof T] || ''),
         error: null,
         touched: false,
         loading: false,
@@ -162,7 +162,7 @@ export function useAdvancedForm<T extends Record<string, any>>({
       const resetFields = {} as Record<keyof T, FormField>;
       Object.keys(initialValues).forEach((key) => {
         resetFields[key as keyof T] = {
-          value: initialValues[key as keyof T] || '',
+          value: String(initialValues[key as keyof T] || ''),
           error: null,
           touched: false,
           loading: false,

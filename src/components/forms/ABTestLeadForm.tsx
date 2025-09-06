@@ -8,6 +8,7 @@ interface ABTestLeadFormProps {
   interestDefault?: string;
 }
 
+
 export default function ABTestLeadForm({ interestDefault }: ABTestLeadFormProps) {
   const { variant, variantId, trackConversion } = useABTest('form_design_test');
   const { trackStart, trackSuccess } = useFormAnalytics('lead_form_ab_test');
@@ -26,7 +27,7 @@ export default function ABTestLeadForm({ interestDefault }: ABTestLeadFormProps)
     return (
       <ModernLeadForm
         interestDefault={interestDefault}
-        variant={variant.variant}
+        variant={(variant as { variant: 'default' | 'minimal' | 'glass' }).variant}
         onSuccess={handleSuccess}
       />
     );
@@ -71,7 +72,7 @@ export default function ABTestLeadForm({ interestDefault }: ABTestLeadFormProps)
               type="submit"
               className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
             >
-              {variant.buttonText || 'Submit'}
+              {String((variant as { buttonText?: string }).buttonText || 'Submit')}
             </button>
           </div>
         </form>

@@ -14,16 +14,17 @@ export function usePerformance() {
 
   useEffect(() => {
     const startTime = performance.now();
+    const currentMetrics = metricsRef.current;
 
     return () => {
       const endTime = performance.now();
       const renderTime = endTime - startTime;
 
-      metricsRef.current.renderCount++;
-      metricsRef.current.lastRenderTime = renderTime;
-      metricsRef.current.averageRenderTime =
-        (metricsRef.current.averageRenderTime * (metricsRef.current.renderCount - 1) + renderTime) /
-        metricsRef.current.renderCount;
+      currentMetrics.renderCount++;
+      currentMetrics.lastRenderTime = renderTime;
+      currentMetrics.averageRenderTime =
+        (currentMetrics.averageRenderTime * (currentMetrics.renderCount - 1) + renderTime) /
+        currentMetrics.renderCount;
     };
   });
 

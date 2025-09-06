@@ -173,7 +173,7 @@ const UniversalInput = forwardRef<HTMLInputElement, UniversalInputProps>(
         <div className="relative">
           {type === 'textarea' ? (
             <motion.textarea
-              ref={ref as any}
+              ref={ref as unknown as React.RefObject<HTMLTextAreaElement>}
               name={name}
               rows={rows}
               className={cn(baseClasses, 'pt-6 resize-none', icon && 'pl-10')}
@@ -190,7 +190,7 @@ const UniversalInput = forwardRef<HTMLInputElement, UniversalInputProps>(
             />
           ) : type === 'select' && options ? (
             <motion.select
-              ref={ref as any}
+              ref={ref as unknown as React.RefObject<HTMLSelectElement>}
               name={name}
               className={cn(baseClasses, 'pt-6', icon && 'pl-10')}
               required={required}

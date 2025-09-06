@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
-import { animationConfig } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 
 interface BackToTopProps {
@@ -23,14 +22,8 @@ export default function BackToTop({
 }: BackToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const { scrollY } = useScroll();
+  useScroll();
 
-  // Smooth scroll animation
-  const smoothScrollY = useSpring(scrollY, {
-    stiffness: 300,
-    damping: 30,
-    mass: 0.5
-  });
 
   // Calculate scroll progress
   useEffect(() => {
@@ -163,7 +156,7 @@ export default function BackToTop({
 
 // Enhanced version with tooltip and keyboard navigation
 export function EnhancedBackToTop(props: BackToTopProps) {
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [showTooltip] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -203,13 +196,12 @@ export function EnhancedBackToTop(props: BackToTopProps) {
 export function ScrollProgressBar({
   height = 3,
   color = '#3b82f6',
-  className,
-  ...props
+  className
 }: {
   height?: number;
   color?: string;
   className?: string;
-} & React.HTMLAttributes<HTMLDivElement>) {
+}) {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -235,12 +227,11 @@ export function ScrollProgressBar({
 // Reading progress indicator
 export function ReadingProgress({
   contentRef,
-  className,
-  ...props
+  className
 }: {
   contentRef: React.RefObject<HTMLElement>;
   className?: string;
-} & React.HTMLAttributes<HTMLDivElement>) {
+}) {
   const [readingProgress, setReadingProgress] = useState(0);
 
   useEffect(() => {

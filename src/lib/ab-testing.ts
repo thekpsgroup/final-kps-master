@@ -7,7 +7,7 @@ interface ABTestVariant {
   id: string;
   name: string;
   weight: number;
-  config: Record<string, any>;
+  config: Record<string, unknown>;
 }
 
 interface ABTest {

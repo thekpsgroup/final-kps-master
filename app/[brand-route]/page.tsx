@@ -32,4 +32,3 @@ export default async function BrandPage({ params }: { params: Promise<{ slug: st
     <BrandPageClient brand={brand} />
   );
 }
-

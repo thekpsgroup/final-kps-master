@@ -15,9 +15,6 @@ const ClientShowcase = dynamic(() => import('@/components/sections/ClientShowcas
 const TeamShowcase = dynamic(() => import('@/components/sections/TeamShowcase'), {
   loading: () => <LoadingSkeleton className="h-64 w-full rounded-2xl" />,
 });
-const LocalDFWShowcase = dynamic(() => import('@/components/sections/LocalDFWShowcase'), {
-  loading: () => <LoadingSkeleton className="h-64 w-full rounded-2xl" />,
-});
 
 export const metadata: Metadata = {
   title:

@@ -72,8 +72,6 @@ export async function generateMetadata({
     };
   }
 
-  const seoData = seoOptimizer.generateLocationSEOData(cityName);
-
   return {
     title: `${serviceInfo.title} in ${cityName} | KPS Group`,
     description: `${serviceInfo.description} in ${cityName}. Professional solutions tailored for local businesses.`,

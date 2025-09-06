@@ -14,6 +14,7 @@ interface LeadFormData {
   phone: string;
   interest: string;
   notes: string;
+  [key: string]: unknown;
 }
 
 interface ModernLeadFormProps {
@@ -63,7 +64,7 @@ export default function ModernLeadForm({
       // Submit to FormSubmit
       const formData = new FormData();
       Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value);
+        formData.append(key, String(value));
       });
 
       try {

@@ -323,11 +323,12 @@ export type ShadowKeys = keyof typeof designTokens.shadows;
 // Utility functions for accessing tokens
 export const getColor = (path: string): string => {
   const keys = path.split('.');
-  let value: Record<string, any> = designTokens.colors;
+  let value: Record<string, unknown> = designTokens.colors;
 
   for (const key of keys) {
-    value = value[key];
-    if (!value) return '#000000'; // fallback
+    const nextValue = value[key];
+    if (!nextValue || typeof nextValue !== 'object') return '#000000'; // fallback
+    value = nextValue as Record<string, unknown>;
   }
 
   return typeof value === 'string' ? value : '#000000';
@@ -352,12 +353,12 @@ export const getShadow = (key: keyof typeof designTokens.shadows, color?: string
 // CSS custom properties for dynamic theming
 export const cssCustomProperties = {
   colors: Object.entries(designTokens.colors).reduce((acc, [category, colors]) => {
-    if (typeof colors === 'object') {
-      Object.entries(colors as Record<string, any>).forEach(([key, value]) => {
+    if (typeof colors === 'object' && colors !== null) {
+      Object.entries(colors as Record<string, unknown>).forEach(([key, value]) => {
         if (typeof value === 'string') {
           acc[`--color-${category}-${key}`] = value;
-        } else if (typeof value === 'object') {
-          Object.entries(value).forEach(([subKey, subValue]) => {
+        } else if (typeof value === 'object' && value !== null) {
+          Object.entries(value as Record<string, unknown>).forEach(([subKey, subValue]) => {
             acc[`--color-${category}-${key}-${subKey}`] = String(subValue);
           });
         }
@@ -408,7 +409,7 @@ export const applyDesignTokens = () => {
 
 // Component-specific style builders
 export const buildComponentStyles = {
-  button: (variant: 'primary' | 'secondary' | 'outline' = 'primary', size: 'sm' | 'md' | 'lg' = 'md') => ({
+  button: (size: 'sm' | 'md' | 'lg' = 'md') => ({
     height: designTokens.components.button.height[size],
     padding: designTokens.components.button.padding[size],
     fontSize: designTokens.components.button.fontSize[size],
@@ -447,7 +448,7 @@ export const buildComponentStyles = {
     }
   }),
 
-  card: (variant: 'default' | 'glass' | 'elevated' = 'default') => ({
+  card: () => ({
     padding: designTokens.components.card.padding,
     borderRadius: designTokens.components.card.borderRadius,
     variants: {

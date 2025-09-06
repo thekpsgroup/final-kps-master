@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface BrandContext {
   currentBrand: BrandConfig | null;
@@ -97,7 +97,7 @@ export function useBrandContext() {
       // Network detection
       let networkType: 'slow' | 'fast' | 'unknown' = 'unknown';
       if ('connection' in navigator) {
-        const connection = (navigator as any).connection;
+        const connection = (navigator as Navigator & { connection?: { effectiveType: string; addEventListener: (type: string, listener: EventListener) => void; removeEventListener: (type: string, listener: EventListener) => void } }).connection;
         if (connection) {
           const slowConnections = ['slow-2g', '2g'];
           const fastConnections = ['4g', '5g'];
@@ -119,14 +119,14 @@ export function useBrandContext() {
       // Memory pressure detection
       let memoryPressure = false;
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        memoryPressure = memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.8;
+        const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+        memoryPressure = memory ? memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.8 : false;
       }
 
       // Battery level detection
       let batteryLevel: number | undefined;
       if ('getBattery' in navigator) {
-        (navigator as any).getBattery().then((battery: { level: number; addEventListener: Function }) => {
+        (navigator as Navigator & { getBattery?: () => Promise<{ level: number }> }).getBattery?.()?.then((battery) => {
           batteryLevel = battery.level * 100;
           setBrandContext(prev => ({
             ...prev,
@@ -154,7 +154,7 @@ export function useBrandContext() {
 
     // Re-detect on network changes
     if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
+      const connection = (navigator as Navigator & { connection?: { effectiveType: string; addEventListener: (type: string, listener: EventListener) => void; removeEventListener: (type: string, listener: EventListener) => void } }).connection;
       if (connection) {
         const handleNetworkChange = () => detectEnvironment();
         connection.addEventListener('change', handleNetworkChange);
@@ -281,7 +281,7 @@ export function useContentAdaptation() {
 
       // Network-aware adaptations
       if ('connection' in navigator) {
-        const connection = (navigator as any).connection;
+        const connection = (navigator as Navigator & { connection?: { effectiveType: string; addEventListener: (type: string, listener: EventListener) => void; removeEventListener: (type: string, listener: EventListener) => void } }).connection;
         if (connection) {
           if (['slow-2g', '2g'].includes(connection.effectiveType)) {
             settings.imageQuality = 'low';
@@ -296,8 +296,8 @@ export function useContentAdaptation() {
 
       // Memory-aware adaptations
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        if (memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.8) {
+        const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+        if (memory && memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.8) {
           settings.animationComplexity = 'minimal';
           settings.imageQuality = 'medium';
         }
@@ -305,7 +305,7 @@ export function useContentAdaptation() {
 
       // Battery-aware adaptations
       if ('getBattery' in navigator) {
-        (navigator as any).getBattery().then((battery: { level: number; addEventListener: Function }) => {
+        (navigator as Navigator & { getBattery?: () => Promise<{ level: number }> }).getBattery?.()?.then((battery) => {
           if (battery.level < 0.2) {
             settings.animationComplexity = 'minimal';
             settings.imageQuality = 'medium';
@@ -331,7 +331,7 @@ export function useContentAdaptation() {
     window.addEventListener('resize', handleResize);
 
     if ('connection' in navigator) {
-      const connection = (navigator as any).connection;
+      const connection = (navigator as Navigator & { connection?: { effectiveType: string; addEventListener: (type: string, listener: EventListener) => void; removeEventListener: (type: string, listener: EventListener) => void } }).connection;
       if (connection) {
         connection.addEventListener('change', handleNetworkChange);
       }
@@ -340,13 +340,13 @@ export function useContentAdaptation() {
     return () => {
       window.removeEventListener('resize', handleResize);
       if ('connection' in navigator) {
-        const connection = (navigator as any).connection;
+        const connection = (navigator as Navigator & { connection?: { effectiveType: string; addEventListener: (type: string, listener: EventListener) => void; removeEventListener: (type: string, listener: EventListener) => void } }).connection;
         if (connection) {
           connection.removeEventListener('change', handleNetworkChange);
         }
       }
     };
-  }, []);
+  }, [adaptationSettings]);
 
   return adaptationSettings;
 }
@@ -490,8 +490,8 @@ export function usePerformanceMonitor() {
 
       // Memory usage
       if ('memory' in performance) {
-        const memory = (performance as any).memory;
-        const memoryUsage = Math.round((memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100);
+        const memory = (performance as Performance & { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
+        const memoryUsage = memory ? Math.round((memory.usedJSHeapSize / memory.jsHeapSizeLimit) * 100) : 0;
         setPerformanceMetrics(prev => ({ ...prev, memoryUsage }));
       }
 
@@ -502,17 +502,20 @@ export function usePerformanceMonitor() {
 
     // Battery monitoring
     if ('getBattery' in navigator) {
-      (navigator as any).getBattery().then((battery: { level: number; addEventListener: Function }) => {
-        const updateBattery = () => {
-          setPerformanceMetrics(prev => ({
-            ...prev,
-            batteryLevel: Math.round(battery.level * 100)
-          }));
-        };
+      const getBattery = (navigator as Navigator & { getBattery?: () => Promise<{ level: number; addEventListener: (type: string, listener: EventListener) => void }> }).getBattery;
+      if (getBattery) {
+        getBattery().then((battery) => {
+          const updateBattery = () => {
+            setPerformanceMetrics(prev => ({
+              ...prev,
+              batteryLevel: Math.round(battery.level * 100)
+            }));
+          };
 
-        updateBattery();
-        battery.addEventListener('levelchange', updateBattery);
-      });
+          updateBattery();
+          battery.addEventListener('levelchange', updateBattery);
+        });
+      }
     }
 
     return () => cancelAnimationFrame(animationId);

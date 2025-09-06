@@ -279,7 +279,7 @@ class PersonalizationEngine {
 
   private evaluateSegmentRule(rule: SegmentRule, data: unknown): boolean {
     return rule.conditions.every((condition) => {
-      const value = this.getDataValue(data as Record<string, any>, condition.type);
+      const value = this.getDataValue(data as Record<string, unknown>, condition.type);
       return this.evaluateCondition(value, condition.operator, condition.value);
     });
   }
@@ -317,12 +317,12 @@ class PersonalizationEngine {
     }
   }
 
-  private getDataValue(data: Record<string, any>, type: string): unknown {
+  private getDataValue(data: Record<string, unknown>, type: string): unknown {
     switch (type) {
       case 'session_count':
         return data.sessionCount || 1;
       case 'page_views':
-        return data.pageViews?.length || 1;
+        return Array.isArray(data.pageViews) ? data.pageViews.length : 1;
       case 'time_on_site':
         return data.timeOnSite || 0;
       case 'form_started':
@@ -824,6 +824,7 @@ export function usePersonalization() {
     null,
   );
   const [userSegment, setUserSegment] = React.useState<UserSegment>('first_time_visitor');
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   React.useEffect(() => {
     const updateContent = () => {
@@ -845,15 +846,15 @@ export function usePersonalization() {
     window.addEventListener('personalizationChange', handlePersonalizationChange as EventListener);
 
     // Update personalization every 10 seconds
-    const interval = React.useRef(setInterval(updateContent, 10000));
+    intervalRef.current = setInterval(updateContent, 10000);
 
     return () => {
       window.removeEventListener(
         'personalizationChange',
         handlePersonalizationChange as EventListener,
       );
-      if (interval.current) {
-        clearInterval(interval.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
     };
   }, []);

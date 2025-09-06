@@ -1,5 +1,3 @@
-import GlassCard from '@/components/ui/GlassCard';
-import { motion } from 'framer-motion';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -48,12 +46,8 @@ export default function ContactPage() {
       <section className="py-24">
         <div className="container max-w-6xl">
           <div className="grid gap-8 md:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
-            >
-              <GlassCard className="p-8 border border-black/5 shadow-glass">
+            <div>
+              <div className="p-8 border border-black/5 shadow-glass bg-white/70 backdrop-blur-md rounded-2xl">
                 <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-3 md:mb-4">
                   Get in touch
                 </h2>
@@ -83,15 +77,11 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-              </GlassCard>
-            </motion.div>
+              </div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: 0.1 }}
-            >
-              <GlassCard className="p-8 border border-black/5 shadow-glass">
+            <div>
+              <div className="p-8 border border-black/5 shadow-glass bg-white/70 backdrop-blur-md rounded-2xl">
                 <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-3 md:mb-4">
                   What to expect
                 </h2>
@@ -115,8 +105,8 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-              </GlassCard>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -125,17 +115,13 @@ export default function ContactPage() {
       <section className="py-24">
         <div className="container max-w-3xl">
           <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+            <div>
+              <div>
                 <Link href="/consultation" className="btn-cta btn-cta-primary">
                   Book Your Consultation
                 </Link>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
