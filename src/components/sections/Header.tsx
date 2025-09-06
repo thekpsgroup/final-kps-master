@@ -41,7 +41,7 @@ export default function Header() {
       <div
         className={cn(
           'mx-auto w-full transition-all duration-300',
-          scrolled ? 'bg-kpsNavy/95 backdrop-blur-md border-b border-white/10' : 'bg-transparent',
+          scrolled ? 'bg-kpsNavy/95 backdrop-blur-md border-b border-white/10' : 'bg-kpsNavy/90 backdrop-blur-md',
         )}
       >
         <nav
